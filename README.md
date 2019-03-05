@@ -1,2 +1,2 @@
-# config_files
+# Config files
 Repository for configuration files
