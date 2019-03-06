@@ -12,7 +12,7 @@ exec --no-startup-id compton -b
 exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
 
 # start a terminal
-bindsym $super+Return exec i3-sensible-terminal
+bindsym $super+Return exec termite
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
