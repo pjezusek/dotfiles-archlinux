@@ -1,0 +1,146 @@
+# set modifier
+set $super Mod4
+set $alt Mod1
+
+# set font
+font pango: Noto Sans 12
+
+#autostart
+exec --no-startup-id xsettingsd &
+exec --no-startup-id xrandr --output DP-3 --auto --right-of HDMI-0
+exec --no-startup-id feh --bg-fill ~/.wallpaper.png
+exec --no-startup-id compton -b
+exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
+exec --no-startup-id nm-applet
+
+# start a terminal
+bindsym $super+Return exec termite
+
+# start dmenu (a program launcher)
+bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
+bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 12'
+
+# Pulse Audio controls
+bindsym $super+u exec pactl set-sink-volume 1 +5% #increase sound volume
+bindsym $super+i exec pactl set-sink-volume 1 -5% #decrease sound volume
+bindsym $super+m exec pactl set-sink-mute 1 toggle # mute sound
+
+# kill focused window
+bindsym $super+c kill
+
+# change focus
+bindsym $super+h focus left
+bindsym $super+j focus down
+bindsym $super+k focus up
+bindsym $super+l focus right
+
+# move focused window
+bindsym $super+Shift+h move left
+bindsym $super+Shift+j move down
+bindsym $super+Shift+k move up
+bindsym $super+Shift+l move right
+
+# split in horizontal orientation
+bindsym $super+e split h
+
+# split in vertical orientation
+bindsym $super+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $super+f fullscreen toggle
+
+# change container layout split
+bindsym $super+s layout toggle split
+
+bindsym $super+w layout toggle
+
+# toggle tiling / floating
+bindsym $super+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $super+Shift+space focus mode_toggle
+
+# switch to workspace
+bindsym $alt+Control+Right workspace next
+bindsym $alt+Control+Left workspace prev
+bindsym $super+1 workspace 1
+bindsym $super+2 workspace 2
+bindsym $super+3 workspace 3
+bindsym $super+4 workspace 4
+bindsym $super+5 workspace 5
+bindsym $super+6 workspace 6
+
+# move focused container to workspace
+bindsym $super+Shift+1 move container to workspace 1
+bindsym $super+Shift+2 move container to workspace 2
+bindsym $super+Shift+3 move container to workspace 3
+bindsym $super+Shift+4 move container to workspace 4
+bindsym $super+Shift+5 move container to workspace 5
+bindsym $super+Shift+6 move container to workspace 6
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $super+Shift+r restart
+
+# exit i3
+bindsym $super+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $super+r mode "resize"
+
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $super+Pause mode "$mode_system"
+
+# panel
+bar {
+  position  top
+	colors {
+        background #2f343f
+        statusline #2f343f
+        separator #4b5262
+
+		# colour of border, background, and text
+        focused_workspace	#2f343f	#bf616a	#d8dee8
+        active_workspace	#2f343f	#2f343f	#d8dee8
+        inactive_workspace	#2f343f	#2f343f	#d8dee8
+        urgent_workspace	#2f343f	#ebcb8b	#2f343f
+    }
+        status_command i3status
+}
+
+# window rules, you can find the window class using xprop
+for_window [class=".*"] border pixel 2
+
+# colour of border, background, text, indicator, and child_border
+client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background		#2f343f
+
+# workspaces configuration
+workspace 1 output DP-3
+workspace 2 output HDMI-0
+workspace 3 output DP-3
+workspace 4 output HDMI-0
+workspace 5 output DP-3
+workspace 6 output HDMI-0
