@@ -1,0 +1,40 @@
+" Set mapleader
+let mapleader = ','
+
+" Set clipboard
+set clipboard=unnamedplus,unnamed
+
+" No bells
+set visualbell
+set noerrorbells
+
+" Map C-c to ESC
+nnoremap <C-c> <ESC>
+inoremap <C-c> <ESC>
+vnoremap <C-c> <ESC>
+xnoremap <C-c> <ESC>
+snoremap <C-c> <ESC>
+cnoremap <C-c> <ESC>
+onoremap <C-c> <ESC>
+
+" Remap save and quit commands
+command! WQ wq
+command! Wq wq
+command! W w
+command! Q q
+
+" Remap exit
+nnoremap <C-w>q :q<CR>
+
+" Plugins
+set surround
+set multiple-cursors
+" KJump
+nmap <leader><leader>s :action KJumpAction<cr>
+nmap <leader><leader>w :action KJumpAction.Word0<cr>
+nmap <leader><leader>l :action KJumpAction.Line<cr>
+
+" Set relative numbers
+set relativenumber
+set number
+
