@@ -1,5 +1,12 @@
+" GENERAL "
+"""""""""""
+
 " Set mapleader
 let mapleader = ','
+
+" Set relative numbers
+set relativenumber
+set number
 
 " Set clipboard
 set clipboard=unnamedplus,unnamed
@@ -8,6 +15,8 @@ set clipboard=unnamedplus,unnamed
 set visualbell
 set noerrorbells
 
+" MAPPING "
+"""""""""""
 " Map C-c to ESC
 nnoremap <C-c> <ESC>
 inoremap <C-c> <ESC>
@@ -26,15 +35,14 @@ command! Q q
 " Remap exit
 nnoremap <C-w>q :q<CR>
 
-" Plugins
+" PLUGINS "
+"""""""""""
 set surround
 set multiple-cursors
+
 " KJump
 nmap <leader><leader>s :action KJumpAction<cr>
 nmap <leader><leader>w :action KJumpAction.Word0<cr>
 nmap <leader><leader>l :action KJumpAction.Line<cr>
 
-" Set relative numbers
-set relativenumber
-set number
 
