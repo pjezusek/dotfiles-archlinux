@@ -7,7 +7,7 @@ font pango: Noto Sans 12
 
 #autostart
 exec --no-startup-id xsettingsd &
-exec --no-startup-id xrandr --output DP-3 --auto --right-of HDMI-0
+exec --no-startup-id xrandr --output DP-3 --auto --left-of HDMI-0
 exec --no-startup-id feh --bg-fill ~/.wallpaper.png
 exec --no-startup-id compton -b
 exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
@@ -96,10 +96,10 @@ mode "resize" {
 bindsym $super+r mode "resize"
 
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock, mode "default"
+    bindsym l exec --no-startup-id i3lock --color=282828, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym s exec --no-startup-id i3lock --color=282828 && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id i3lock --color=282828 && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym p exec --no-startup-id systemctl poweroff, mode "default"
 
@@ -130,7 +130,7 @@ bar {
 for_window [class=".*"] border pixel 2
 
 # colour of border, background, text, indicator, and child_border
-client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused			#bf616a #2f343f #d8dee8 #bf616a #e60073
 client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
@@ -138,9 +138,9 @@ client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background		#2f343f
 
 # workspaces configuration
-workspace 1 output DP-3
-workspace 2 output HDMI-0
-workspace 3 output DP-3
-workspace 4 output HDMI-0
-workspace 5 output DP-3
-workspace 6 output HDMI-0
+workspace 1 output HDMI-0
+workspace 2 output DP-3
+workspace 3 output HDMI-0
+workspace 4 output DP-3
+workspace 5 output HDMI-0
+workspace 6 output DP-3

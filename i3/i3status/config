@@ -8,12 +8,11 @@ general {
 		color_bad = '#ba5e57'
 }
 
-order += "load"
 order += "cpu_temperature 0"
 order += "disk /"
 order += "disk /home"
 order += "ethernet enp3s0"
-order += "wireless wlp0s20f0u1"
+order += "wireless wlp0s20f0u2u4"
 order += "volume master"
 order += "tztime local"
 
@@ -39,7 +38,7 @@ ethernet enp3s0 {
         format_down = "<span background='#88c0d0'>  Disconnected </span>"
 }
 
-wireless wlp0s20f0u1 {
+wireless wlp0s20f0u2u4 {
         format_up = "<span background='#b48ead'>  %essid </span>"
         format_down = "<span background='#b48ead'>  Disconnected </span>"
 }
