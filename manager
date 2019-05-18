@@ -30,7 +30,7 @@ declare -A COPY_OPTIONS=(
 
 # Prints help
 usage() {
-  help_text="USAGE: ./manager -h|[-d][-v] -c config|-i config
+  help_text="USAGE: ./manager -h|[-d][-v] -c config|[-v]-i config
   \n-h - help - print help
   \n-d - dangerous - without backup of existing files
   \n-c - config file name - install given configuration
