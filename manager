@@ -1,0 +1,233 @@
+#!/bin/bash
+
+# manager - copy files to their proper locations
+
+BACKUP_DIR="$HOME/.config_backup/$(date +%Y%m%d%H%M%S)"
+AVAILABLE_CONFIGS=(bash git i3 idea powerline termite tmux xresources all)
+declare -A COPY_OPTIONS=(
+  # bash
+  ["bash_.bash_profile"]="$HOME/.bash_profile"
+  ["bash_.bashrc"]="$HOME/.bashrc"
+  # git
+  ["git_.gitconfig"]="$HOME/.gitconfig"
+  # i3
+  ["i3_config"]="$HOME/.config/i3/config"
+  ["i3_i3status"]="$HOME/.config/i3status"
+  # idea
+  ["idea_.ideavimrc"]="$HOME/.ideavimrc"
+  # powerline
+  ["powerline_colorschemes"]="$HOME/.config/powerline/colorschemes"
+  ["powerline_themes"]="$HOME/.config/powerline/themes"
+  ["powerline_colors.json"]="$HOME/.config/powerline/colors.json"
+  ["powerline_config.json"]="$HOME/.config/powerline/config.json"
+  # termite
+  ["termite_config"]="$HOME/.config/termite/config"
+  # tmux
+  ["tmux_.tmux.conf"]="$HOME/.tmux.conf"
+  # xresources
+  ["xresources_.Xresources"]="$HOME/.Xresources"
+)
+
+# Prints help
+usage() {
+  help_text="USAGE: ./manager -h|[-d][-v] -c config|-i config
+  \n-h - help - print help
+  \n-d - dangerous - without backup of existing files
+  \n-c - config file name - install given configuration
+  \n-i - import - import your current configuration to this repository
+  \n-v - verbose
+  \nExit codes:
+  \n1 - cannot install configuration
+  \n2 - invalid config name
+  \n3 - connot create backup dir
+  \n4 - invalid options
+  \n5 - cannot import configuration
+  \n\nList of available configs:"
+  echo -e $help_text
+  for config in "${AVAILABLE_CONFIGS[@]}"
+  do
+    echo -e "${config}:"
+    if [[ $config = 'all' ]]; then
+      echo -e "\t all configuration files"
+    else
+      for file in $(ls -A ${config})
+      do
+        key="${config}_${file}"
+        location=${COPY_OPTIONS[${key}]}
+        if [[ $location = "" ]]; then
+          echo -e "\t$file -> [Missing configuration]"
+        else
+          echo -e "\t$file -> $location"
+        fi
+      done
+    fi
+  done
+}
+
+# Makes backup of existing files
+#
+# params:
+#   1 - config name
+backup() {
+  local config=$1
+  local backup_dir="${BACKUP_DIR}/${config}"
+  # create backup dir with timestamp
+  mkdir -p ${verbose_option} ${backup_dir}
+  if [[ $? != 0 ]]; then
+    echo "Cannot create backup dir. Exiting..."
+    exit 2
+  fi
+  # iterate over all files in given config dir
+  for file in $(ls -A ${config})
+  do
+    local key="${config}_${file}"
+    local target_to_backup=${COPY_OPTIONS[${key}]}
+    if [[ -d $target_to_backup ]]; then # directory
+      cp -r ${verbose_option} $target_to_backup $backup_dir
+    elif [[ -f $target_to_backup ]]; then # file
+      cp ${verbose_option} $target_to_backup $backup_dir
+    else
+      echo "File $file not found"
+    fi
+  done
+}
+
+# Makes installation
+#
+# params:
+#   1 - config name
+install() {
+  local config=$1
+  # iterate over all files in given config dir
+  for file in $(ls -A ${config})
+  do
+    local key="${config}_${file}"
+    local target_to_replace=${COPY_OPTIONS[${key}]}
+    local replace_with="${config}/${file}"
+    if [[ -d $replace_with ]] && [[ $target_to_replace != "" ]]; then # directory
+      rm -r $target_to_replace
+      cp -r ${verbose_option} $replace_with $target_to_replace
+    elif [[ -f $replace_with ]] && [[ $target_to_replace != "" ]]; then # file
+      rm $target_to_replace
+      cp $verbose_option $replace_with $target_to_replace
+    else
+      echo "File $file not found"
+    fi
+    if [[ $? != 0 ]]; then
+      echo "Cannot install configuration. Exiting..."
+      exit 1
+    fi
+  done
+}
+
+# Makes import
+#
+# params:
+#   1 - config name
+import() {
+  local config=$1
+  # iterate over all files in given config dir
+  for file in $(ls -A ${config})
+  do
+    local key="${config}_${file}"
+    local replace_with=${COPY_OPTIONS[${key}]}
+    local target_to_place="${config}/${file}"
+    if [[ -d $target_to_place ]] && [[ $replace_with != "" ]]; then # directory
+      cp -r ${verbose_option} $replace_with $target_to_place
+    elif [[ -f $target_to_place ]] && [[ $replace_with != "" ]]; then # file
+      cp $verbose_option $replace_with $target_to_place
+    else
+      echo "File $file not found"
+    fi
+    if [[ $? != 0 ]]; then
+      echo "Cannot import configuration. Exiting..."
+      exit 5
+    fi
+  done
+}
+
+
+# defaults
+option_provided=false
+safe_install=true
+install=false
+verbose_option=""
+import=false
+
+# parse options
+while getopts ':hdc:vi:' OPTION; do
+  case $OPTION in
+    h)
+      usage
+      exit
+      ;;
+    d)
+      safe_install=false
+      ;;
+    c)
+      install=true
+      config=$OPTARG
+      option_provided=true
+      ;;
+    v)
+      verbose_option="-v"
+      ;;
+    i)
+      option_provided=true
+      import=true
+      config=$OPTARG
+      ;;
+    :)
+      echo 'Invalid option' >&2
+      ;;
+  esac
+done
+
+# check if arguments were given
+if [[ $# = 0 ]] || [[ $option_provided = false ]]; then
+  usage
+  exit 4
+fi
+
+if [[ $install = true ]] && [[ $import = true ]]; then
+  echo "Choose import or install action"
+  exit 4
+fi
+
+
+# check if the correct config name was given
+if [[ $install = true ]] || [[ $import = true ]]; then
+  # check if $config is in $AVAILABLE_CONFIGS
+  valid_config_name=false
+  for config_name in "${AVAILABLE_CONFIGS[@]}"
+  do
+    if [[ $config_name = $config ]]; then
+      valid_config_name=true
+      break
+    fi
+  done
+  # exit if $config is not in $AVAILABLE_CONFIGS
+  if [[ $valid_config_name = false ]]; then
+    echo 'Invalid config name'
+    exit 2
+  fi
+fi
+
+# perform task
+if [[ $config = "all" ]]; then
+  for config_name in "${AVAILABLE_CONFIGS[@]}"
+  do
+    # omit "all" from $AVAILABLE_CONFIGS
+    if [[ $config_name = "all" ]]; then
+      continue
+    else
+      [[ $safe_install = true ]] && [[ $install = true ]] && backup $config_name
+      [[ $install = true ]] && install $config_name
+      [[ $import = true ]] && import $config_name 
+    fi
+  done
+else # perform task for only one configuration
+  [[ $safe_install = true ]] && [[ $install = true ]] && backup $config
+  [[ $install = true ]] && install $config
+  [[ $import = true ]] && import $config 
+fi
