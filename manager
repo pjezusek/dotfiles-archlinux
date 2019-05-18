@@ -44,13 +44,13 @@ usage() {
   \n5 - cannot import configuration
   \n\nList of available configs:"
   echo -e $help_text
-  for config in "${AVAILABLE_CONFIGS[@]}"
+  for config in ${AVAILABLE_CONFIGS[@]}
   do
     echo -e "${config}:"
     if [[ $config = 'all' ]]; then
       echo -e "\t all configuration files"
     else
-      for file in $(ls -A ${config})
+      for file in $(ls -A $config)
       do
         key="${config}_${file}"
         location=${COPY_OPTIONS[${key}]}
@@ -72,20 +72,20 @@ backup() {
   local config=$1
   local backup_dir="${BACKUP_DIR}/${config}"
   # create backup dir with timestamp
-  mkdir -p ${verbose_option} ${backup_dir}
+  mkdir -p $verbose_option $backup_dir
   if [[ $? != 0 ]]; then
     echo "Cannot create backup dir. Exiting..."
     exit 2
   fi
   # iterate over all files in given config dir
-  for file in $(ls -A ${config})
+  for file in $(ls -A $config)
   do
     local key="${config}_${file}"
     local target_to_backup=${COPY_OPTIONS[${key}]}
     if [[ -d $target_to_backup ]]; then # directory
-      cp -r ${verbose_option} $target_to_backup $backup_dir
+      cp -r $verbose_option $target_to_backup $backup_dir
     elif [[ -f $target_to_backup ]]; then # file
-      cp ${verbose_option} $target_to_backup $backup_dir
+      cp $verbose_option $target_to_backup $backup_dir
     else
       echo "File $file not found"
     fi
@@ -99,14 +99,14 @@ backup() {
 install() {
   local config=$1
   # iterate over all files in given config dir
-  for file in $(ls -A ${config})
+  for file in $(ls -A $config)
   do
     local key="${config}_${file}"
     local target_to_replace=${COPY_OPTIONS[${key}]}
     local replace_with="${config}/${file}"
     if [[ -d $replace_with ]] && [[ $target_to_replace != "" ]]; then # directory
       rm -r $target_to_replace
-      cp -r ${verbose_option} $replace_with $target_to_replace
+      cp -r $verbose_option $replace_with $target_to_replace
     elif [[ -f $replace_with ]] && [[ $target_to_replace != "" ]]; then # file
       rm $target_to_replace
       cp $verbose_option $replace_with $target_to_replace
@@ -127,21 +127,23 @@ install() {
 import() {
   local config=$1
   # iterate over all files in given config dir
-  for file in $(ls -A ${config})
+  for key in "${!COPY_OPTIONS[@]}"
   do
-    local key="${config}_${file}"
-    local replace_with=${COPY_OPTIONS[${key}]}
-    local target_to_place="${config}/${file}"
-    if [[ -d $target_to_place ]] && [[ $replace_with != "" ]]; then # directory
-      cp -r ${verbose_option} $replace_with $target_to_place
-    elif [[ -f $target_to_place ]] && [[ $replace_with != "" ]]; then # file
-      cp $verbose_option $replace_with $target_to_place
-    else
-      echo "File $file not found"
-    fi
-    if [[ $? != 0 ]]; then
-      echo "Cannot import configuration. Exiting..."
-      exit 5
+    if [[ $key =~ ^${config}_ ]]; then
+      local replace_with=${COPY_OPTIONS[${key}]}
+      local target_to_replace="${config}/${file}"
+      [[ ! -d $config ]] && mkdir -p $verbose_option $config
+      if [[ -d $replace_with ]]; then # directory
+        cp -r $verbose_option $replace_with $target_to_replace
+      elif [[ -f $replace_with ]]; then # file
+        cp $verbose_option $replace_with $target_to_replace
+      else
+        echo "File $file not found"
+      fi
+      if [[ $? != 0 ]]; then
+        echo "Cannot import configuration. Exiting..."
+        exit 5
+      fi
     fi
   done
 }
