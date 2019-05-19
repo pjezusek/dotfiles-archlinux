@@ -1,15 +1,23 @@
 #!/bin/bash
 
-PRIMARY_MONITOR="HDMI-0"
-SECONDARY_MONITOR="DCP-3"
-SECONDARY_MONITOR_LOCATION="--left-of HDMI-0"
-RESOLUTION="1920x1080"
+# Setups monitor's resolution, panning and position
+#
+# Needs:
+# - PRIMARY_MONITOR - name of primary monitor
+# - SECONDARY_MONITOR - name of secondary monitor (optional)
+# - SECONDARY_MONITOR_LOCATION - location of secondary monitor (optional)
+# - RESOLUTION - monitors resolution
 setup_monitors() {
   xrand --output $PRIMARY_MONITOR --mode $RESOLUTION --fb $RESOLUTION --panning $RESOLUTION --primary
-  xrand --output $SECONDARY_MONITOR --mode $RESOLUTION --panning $RESOLUTION $SECONDARY_MONITOR_LOCATION
+  if [[ $SECONDARY_MONITOR != "" ]]; then
+    xrand --output $SECONDARY_MONITOR --mode $RESOLUTION --panning $RESOLUTION $SECONDARY_MONITOR_LOCATION
+  fi
 }
 
-SESSIONS=(base config SSH)
+# Initializes tmux sessions
+#
+# Needs:
+# - SESSIONS - list of sessions to initialize
 setup_tmux() {
 	local tmux_sessions_list=$(tmux ls | sed 's/://' | awk {'print $1'})	
   if [[ $? = 0 ]]; then
