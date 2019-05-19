@@ -1,7 +1,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+if [[ -f "$HOME/.bash_functions" ]]; then
+  source "$HOME/.bash_functions"
+fi
+
+if [[ -f "$HOME/.bash_aliases" ]]; then
+  source "$HOME/.bash_aliases"
+fi
 
 # set prompt
 #export PS1="\[\e[32m\]\u\[\e[m\]@\[\e[35m\]\h\[\e[m\] \[\e[34;40m\]\w\[\e[m\]\\$ "
@@ -11,6 +17,8 @@ neofetch
 
 # run tmux
 if [[ $TERM == "xterm-termite" ]]; then
+  type setup_tmux > /dev/null
+  [[ $? = 0 ]] && setup_tmux
   tmux a -t base || tmux new -s base
 fi
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
@@ -30,3 +38,5 @@ eval "$(pyenv virtualenv-init -)"
 
 # Initialize bookmarks
 source ~/.local/bin/bashmarks.sh
+
+

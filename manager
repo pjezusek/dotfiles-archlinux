@@ -8,6 +8,8 @@ declare -A COPY_OPTIONS=(
   # bash
   ["bash_.bash_profile"]="$HOME/.bash_profile"
   ["bash_.bashrc"]="$HOME/.bashrc"
+  ["bash_.bash_aliases"]="$HOME/.bash_aliases"
+  ["bash_.bash_functions"]="$HOME/.bash_functions"
   # git
   ["git_.gitconfig"]="$HOME/.gitconfig"
   # i3
