@@ -71,6 +71,7 @@ usage() {
 # params:
 #   1 - config name
 backup() {
+  echo 'Making backup...'
   local config=$1
   local backup_dir="${BACKUP_DIR}/${config}"
   # create backup dir with timestamp
@@ -92,6 +93,7 @@ backup() {
       echo "File $file not found"
     fi
   done
+  echo 'Done'
 }
 
 # Makes installation
@@ -99,6 +101,7 @@ backup() {
 # params:
 #   1 - config name
 install() {
+  echo 'Installing...'
   local config=$1
   # iterate over all files in given config dir
   for file in $(ls -A $config)
@@ -120,6 +123,7 @@ install() {
       exit 1
     fi
   done
+  echo 'Done'
 }
 
 # Makes import
@@ -127,6 +131,7 @@ install() {
 # params:
 #   1 - config name
 import() {
+  echo 'Importing...'
   local config=$1
   # iterate over all files in given config dir
   for key in "${!COPY_OPTIONS[@]}"
@@ -148,6 +153,7 @@ import() {
       fi
     fi
   done
+  echo 'Done'
 }
 
 
