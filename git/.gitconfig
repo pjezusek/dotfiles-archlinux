@@ -17,3 +17,9 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[merge]
+	tool = diffconflicts
+[mergetool "diffconflicts"]
+	cmd = diffconflicts nvim $BASE $LOCAL $REMOTE $MERGED
+	trustExitCode = true
+	keepBackup = false

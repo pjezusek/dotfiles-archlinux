@@ -2,8 +2,10 @@
 
 # manager - copy files to their proper locations
 
+shopt -s dotglob
+
 BACKUP_DIR="$HOME/.config_backup/$(date +%Y%m%d%H%M%S)"
-AVAILABLE_CONFIGS=(bash git i3 idea powerline termite tmux xresources all)
+AVAILABLE_CONFIGS=(bash git i3 idea powerline termite tmux xresources ranger all)
 declare -A COPY_OPTIONS=(
   # bash
   ["bash_.bash_profile"]="$HOME/.bash_profile"
@@ -28,11 +30,17 @@ declare -A COPY_OPTIONS=(
   ["tmux_.tmux.conf"]="$HOME/.tmux.conf"
   # xresources
   ["xresources_.Xresources"]="$HOME/.Xresources"
+  # ranger
+  ["ranger_commands_full.py"]="$HOME/.config/ranger/commands_full.py"
+  ["ranger_scope.sh"]="$HOME/.config/ranger/scope.sh"
+  ["ranger_commands.py"]="$HOME/.config/ranger/commands.py"
+  ["ranger_rifle.conf"]="$HOME/.config/ranger/rifle.conf"
+  ["ranger_rc.conf"]="$HOME/.config/ranger/rc.conf"
 )
 
 # Prints help
 usage() {
-  help_text="USAGE: ./manager -h|[-d][-v] -c config|[-v]-i config
+  help_text='USAGE: ./manager -h|[-d][-v] -c config|[-v]-i config
   \n-h - help - print help
   \n-d - dangerous - without backup of existing files
   \n-c - config file name - install given configuration
@@ -44,16 +52,17 @@ usage() {
   \n3 - connot create backup dir
   \n4 - invalid options
   \n5 - cannot import configuration
-  \n\nList of available configs:"
+  \n\nList of available configs:'
   echo -e $help_text
   for config in ${AVAILABLE_CONFIGS[@]}
   do
     echo -e "${config}:"
     if [[ $config = 'all' ]]; then
-      echo -e "\t all configuration files"
+      echo -e '\tall configuration files'
     else
-      for file in $(ls -A $config)
+      for file in ${config}/*
       do
+        file=$(basename $file)
         key="${config}_${file}"
         location=${COPY_OPTIONS[${key}]}
         if [[ $location = "" ]]; then
@@ -77,12 +86,13 @@ backup() {
   # create backup dir with timestamp
   mkdir -p $verbose_option $backup_dir
   if [[ $? != 0 ]]; then
-    echo "Cannot create backup dir. Exiting..."
+    echo 'Cannot create backup dir. Exiting...'
     exit 2
   fi
   # iterate over all files in given config dir
-  for file in $(ls -A $config)
+  for file in ${config}/*
   do
+    file=$(basename $file)
     local key="${config}_${file}"
     local target_to_backup=${COPY_OPTIONS[${key}]}
     if [[ -d $target_to_backup ]]; then # directory
@@ -104,8 +114,9 @@ install() {
   echo 'Installing...'
   local config=$1
   # iterate over all files in given config dir
-  for file in $(ls -A $config)
+  for file in ${config}/*
   do
+    file=$(basename $file)
     local key="${config}_${file}"
     local target_to_replace=${COPY_OPTIONS[${key}]}
     local replace_with="${config}/${file}"
@@ -119,7 +130,7 @@ install() {
       echo "File $file not found"
     fi
     if [[ $? != 0 ]]; then
-      echo "Cannot install configuration. Exiting..."
+      echo 'Cannot install configuration. Exiting...'
       exit 1
     fi
   done
@@ -148,7 +159,7 @@ import() {
         echo "File $file not found"
       fi
       if [[ $? != 0 ]]; then
-        echo "Cannot import configuration. Exiting..."
+        echo 'Cannot import configuration. Exiting...'
         exit 5
       fi
     fi
@@ -200,7 +211,7 @@ if [[ $# = 0 ]] || [[ $option_provided = false ]]; then
 fi
 
 if [[ $install = true ]] && [[ $import = true ]]; then
-  echo "Choose import or install action"
+  echo 'Choose import or install action'
   exit 4
 fi
 
@@ -224,11 +235,11 @@ if [[ $install = true ]] || [[ $import = true ]]; then
 fi
 
 # perform task
-if [[ $config = "all" ]]; then
+if [[ $config = 'all' ]]; then
   for config_name in "${AVAILABLE_CONFIGS[@]}"
   do
     # omit "all" from $AVAILABLE_CONFIGS
-    if [[ $config_name = "all" ]]; then
+    if [[ $config_name = 'all' ]]; then
       continue
     else
       [[ $safe_install = true ]] && [[ $install = true ]] && backup $config_name
