@@ -15,7 +15,7 @@ RUBY_VERSION='2.6.0'
 RUBY_PACKAGES=(neovim teamocil)
 RVM_KEYS=(409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB)
 
-# Installs given package after checking if exist
+# Installs given package after checking if exists
 #
 # params:
 #   1 - package name
@@ -87,6 +87,7 @@ intall_ruby() {
     rvm install $1
   fi
   rvm use $1
+  shift
   local packages_array=("$@")
   for package in "${packages_array[@]}"; do
     if [[ $(gem list | grep $package) == "" ]]; then
