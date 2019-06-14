@@ -85,44 +85,44 @@ bindsym $super+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg 
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        bindsym h resize shrink width 5 px or 5 ppt
-        bindsym j resize grow height 5 px or 5 ppt
-        bindsym k resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+  bindsym h resize shrink width 5 px or 5 ppt
+  bindsym j resize grow height 5 px or 5 ppt
+  bindsym k resize shrink height 5 px or 5 ppt
+  bindsym l resize grow width 5 px or 5 ppt
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $super+r mode "resize"
 
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock --color=282828, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id i3lock --color=282828 && systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id i3lock --color=282828 && systemctl hibernate, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+  bindsym l exec --no-startup-id i3lock --color=282828, mode "default"
+  bindsym e exec --no-startup-id i3-msg exit, mode "default"
+  bindsym s exec --no-startup-id i3lock --color=282828 && systemctl suspend, mode "default"
+  bindsym h exec --no-startup-id i3lock --color=282828 && systemctl hibernate, mode "default"
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym p exec --no-startup-id systemctl poweroff, mode "default"
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $super+Pause mode "$mode_system"
 
 # panel
 bar {
   position  top
-	colors {
-        background #2f343f
-        statusline #2f343f
-        separator #4b5262
+  colors {
+    background #2f343f
+    statusline #2f343f
+    separator #4b5262
 
-		# colour of border, background, and text
-        focused_workspace	#2f343f	#bf616a	#d8dee8
-        active_workspace	#2f343f	#2f343f	#d8dee8
-        inactive_workspace	#2f343f	#2f343f	#d8dee8
-        urgent_workspace	#2f343f	#ebcb8b	#2f343f
-    }
-        status_command i3status
+    # colour of border, background, and text
+    focused_workspace	#2f343f	#bf616a	#d8dee8
+    active_workspace	#2f343f	#2f343f	#d8dee8
+    inactive_workspace	#2f343f	#2f343f	#d8dee8
+    urgent_workspace	#2f343f	#ebcb8b	#2f343f
+  }
+  status_command i3status
 }
 
 # window rules, you can find the window class using xprop
