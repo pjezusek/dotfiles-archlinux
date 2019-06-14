@@ -30,7 +30,6 @@ neofetch
 if [[ $TERM == "xterm-termite" ]]; then
   type setup_tmux > /dev/null
   [[ $? = 0 ]] && setup_tmux
-  tmux a -t base || tmux new -s base
 fi
 
 # initialize fuzzy finder

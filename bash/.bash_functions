@@ -40,5 +40,6 @@ setup_tmux() {
       tmux send -t "${session}" "teamocil --here ${session}" ENTER
     done
   fi
+  tmux a
 }
 
