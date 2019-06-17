@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Packages
-PACKAGES=(curl gnupg tmux ranger i3)
+PACKAGES=(curl gnupg tmux ranger termite neofetch)
 INSTALL_COMMAND='sudo pacman -S'
 
 # Python
 PYTHON2_VERSION=2.7.16
 PYTHON3_VERSION=3.7.1
 PYTHON2_PACKAGES=(neovim)
-PYTHON3_PACKAGES=(neovim powerline)
+PYTHON3_PACKAGES=(neovim powerline-status)
 
 # Ruby
 RUBY_VERSION='2.6.0'
@@ -63,7 +63,7 @@ install_python() {
 #   1 - ruby version
 #   2..n - additional packages to install
 intall_ruby() {
-  let res=$(which rvm)
+  local res=$(which rvm)
   if [[ $? = 0 ]]; then
     local keys=()
     for key in "${RVM_KEYS[@]}"; do
@@ -119,3 +119,11 @@ install_python $PYTHON3_VERSION "${PYTHON3_PACKAGES[@]}"
 
 # install ruby
 intall_ruby $RUBY_VERSION "${RUBY_PACKAGES[@]}"
+
+# install bashmarks
+mkdir __temp
+git clone git://github.com/huyng/bashmarks.git __temp/
+cd __temp/bashmarks
+make install
+cd ../../
+rm -rf __temp
