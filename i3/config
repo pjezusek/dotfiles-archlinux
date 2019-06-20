@@ -1,28 +1,29 @@
+# General settings {{{
 # set modifier
 set $super Mod4
 set $alt Mod1
 
 # set font
 font pango: Noto Sans 12
+#}}}
 
-#autostart
+# Autostart {{{
 exec --no-startup-id xsettingsd &
+exec --no-startup-id xrandr --output DP-3 --auto --left-of HDMI-0
 exec --no-startup-id feh --bg-fill ~/.wallpaper.png
 exec --no-startup-id compton -b
 exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
 exec --no-startup-id nm-applet
+#}}}
 
+# Key bindings {{{1
 # start a terminal
 bindsym $super+Return exec termite
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
 bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 12'
-
-# Pulse Audio controls
-bindsym $super+u exec pactl set-sink-volume 1 +5% #increase sound volume
-bindsym $super+i exec pactl set-sink-volume 1 -5% #decrease sound volume
-bindsym $super+m exec pactl set-sink-mute 1 toggle # mute sound
+bindsym $super+Shift+w exec rofi -lines 12 -padding 18 -width 60 -location 0 -show window -sidebar-mode -columns 3 -font 'Noto Sans 12'
 
 # kill focused window
 bindsym $super+c kill
@@ -40,18 +41,18 @@ bindsym $super+Shift+k move up
 bindsym $super+Shift+l move right
 
 # split in horizontal orientation
-bindsym $super+e split h
+bindsym $super+Control+e split h
 
 # split in vertical orientation
-bindsym $super+v split v
+bindsym $super+Control+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $super+f fullscreen toggle
 
 # change container layout split
-bindsym $super+s layout toggle split
+bindsym $super+Control+s layout toggle split
 
-bindsym $super+w layout toggle
+bindsym $super+Control+w layout toggle
 
 # toggle tiling / floating
 bindsym $super+space floating toggle
@@ -60,40 +61,70 @@ bindsym $super+space floating toggle
 bindsym $super+Shift+space focus mode_toggle
 
 # switch to workspace
-bindsym $alt+Control+Right workspace next
-bindsym $alt+Control+Left workspace prev
-bindsym $super+1 workspace 1
-bindsym $super+2 workspace 2
-bindsym $super+3 workspace 3
-bindsym $super+4 workspace 4
-bindsym $super+5 workspace 5
-bindsym $super+6 workspace 6
+bindsym $super+q workspace "terminal"
+bindsym $super+b workspace "browser"
+bindsym $super+m workspace "mailer"
+bindsym $super+w workspace "media"
+bindsym $super+g workspace "gimp"
+bindsym $super+r workspace "remote"
+bindsym $super+o workspace "office"
+bindsym $super+i workspace "ide"
+bindsym $super+v workspace "images"
+bindsym $super+e workspace "pdf"
 
 # move focused container to workspace
-bindsym $super+Shift+1 move container to workspace 1
-bindsym $super+Shift+2 move container to workspace 2
-bindsym $super+Shift+3 move container to workspace 3
-bindsym $super+Shift+4 move container to workspace 4
-bindsym $super+Shift+5 move container to workspace 5
-bindsym $super+Shift+6 move container to workspace 6
-
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $super+Shift+r restart
+bindsym $super+Shift+t move container to workspace "terminal"
+bindsym $super+Shift+b move container to workspace "browser"
+bindsym $super+Shift+w move container to workspace "media"
+jindsym $super+Shift+m move container to workspace "mailer"
+jindsym $super+Shift+g move container to workspace "gimp"
+bindsym $super+Shift+r move container to workspace "remote"
+bindsym $super+Shift+o move container to workspace "office"
+bindsym $super+Shift+i move container to workspace "ide"
+bindsym $super+Shift+v move container to workspace "images"
+bindsym $super+Shift+e move container to workspace "pdf"
 
 # exit i3
-bindsym $super+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+bindsym $super+Shift+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-  bindsym h resize shrink width 5 px or 5 ppt
-  bindsym j resize grow height 5 px or 5 ppt
-  bindsym k resize shrink height 5 px or 5 ppt
-  bindsym l resize grow width 5 px or 5 ppt
+# Make the currently focused window a scratchpad
+bindsym $super+Shift+minus move scratchpad
+bindsym $super+minus scratchpad show
+bindsym $super+equal [class="keepassxc"] scratchpad show
+bindsym $super+n [class="Termite"] scratchpad show
+# }}}
+
+# Workspace configuration {{{
+workspace "terminal" output HDMI-0
+workspace "browser" output DP-3
+workspace "mailer" output HDMI-0
+workspace "remote" output HDMI-0
+workspace "office" output HDMI-0
+workspace "ide" output HDMI-0
+workspace "images" output DP-3
+workspace "media" output HDMI-0
+workspace "private-left" output DP-3
+workspace "private-right" output HDMI-0
+
+assign [class="Vimiv"] images
+assign [class="Evince"] pdf
+focus_on_window_activation focus
+#}}}
+
+# Modes {{{
+bindsym $super+p mode "private"
+mode "private" {
+  bindsym l workspace "private-left"; mode "default"
+  bindsym r workspace "private-right"; mode "default"
+
+  bindsym Shift+l move container to workspace "private-left"; mode "default"
+  bindsym Shift+r move container to workspace "private-right"; mode "default"
+
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $super+r mode "resize"
 
+bindsym $super+Pause mode "$mode_system"
 mode "$mode_system" {
   bindsym l exec --no-startup-id i3lock --color=282828, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
@@ -106,11 +137,40 @@ mode "$mode_system" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $super+Pause mode "$mode_system"
 
-# panel
+# open programs
+bindsym $super+x mode "$mode_launcher"
+mode "$mode_launcher" {
+    bindsym f exec firefox; mode "default"
+    bindsym t exec thunderbird; mode "default"
+    bindsym k exec keepassxc; mode "default"
+    bindsym l exec libreoffice; mode "default"
+    bindsym g exec gimp; mode "default"
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+bindsym $super+a mode "$mode_audio"
+# Pulse Audio controls
+mode "$mode_audio" {
+  bindsym $super+u exec pactl set-sink-volume 1 +5% #increase sound volume
+  bindsym $super+i exec pactl set-sink-volume 1 -5% #decrease sound volume
+  bindsym $super+m exec pactl set-sink-mute 1 toggle # mute sound
+}
+#}}}
+
+# Layout {{{
 bar {
+  mode hide
+  hidden_state hide
+
   position  top
+
+  bindsym button4 nop
+  bindsym button5 nop
+  bindsym button1 nop
+
   colors {
     background #2f343f
     statusline #2f343f
@@ -135,3 +195,4 @@ client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background		#2f343f
+#}}}

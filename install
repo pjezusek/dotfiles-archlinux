@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Packages
-PACKAGES=(curl gnupg tmux ranger termite neofetch)
-INSTALL_COMMAND='sudo pacman -S'
+PACKAGES=(neovim curl gnupg tmux ranger termite neofetch vimiv evince diff-so-fancy docker docker-compose)
+INSTALL_COMMAND='sudo pacman -Syu'
 
 # Python
 PYTHON2_VERSION=2.7.16
-PYTHON3_VERSION=3.7.1
+PYTHON3_VERSION=3.7.3
 PYTHON2_PACKAGES=(neovim)
 PYTHON3_PACKAGES=(neovim powerline-status)
 
@@ -20,7 +20,7 @@ RVM_KEYS=(409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD
 # params:
 #   1 - package name
 install_package() {
-  local res=$(which $1)
+  which $1
   if [[ $? != 0  ]]; then
     eval "$INSTALL_COMMAND $1"
     if [[ $? != 0 ]]; then
@@ -63,8 +63,8 @@ install_python() {
 #   1 - ruby version
 #   2..n - additional packages to install
 intall_ruby() {
-  local res=$(which rvm)
-  if [[ $? = 0 ]]; then
+  which rvm
+  if [[ $? != 0 ]]; then
     local keys=()
     for key in "${RVM_KEYS[@]}"; do
       if [[ $(gpg -k | grep key) = "" ]]; then
@@ -100,9 +100,10 @@ intall_ruby() {
   done
 }
 
+
 # install packages
 for package_name in "${PACKAGES[@]}"; do
-  install_package package_name
+  install_package $package_name
 done
 
 # install pyevn and pyenv-virtualenv
@@ -123,7 +124,7 @@ intall_ruby $RUBY_VERSION "${RUBY_PACKAGES[@]}"
 # install bashmarks
 mkdir __temp
 git clone git://github.com/huyng/bashmarks.git __temp/
-cd __temp/bashmarks
+cd __temp
 make install
-cd ../../
+cd ../
 rm -rf __temp

@@ -27,7 +27,7 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 neofetch
 
 # run tmux
-if [[ $TERM == "xterm-termite" ]]; then
+if [ -z $TMUX ]; then
   type setup_tmux > /dev/null
   [[ $? = 0 ]] && setup_tmux
 fi
