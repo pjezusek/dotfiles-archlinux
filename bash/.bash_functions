@@ -20,7 +20,7 @@ setup_monitors() {
 # - SESSIONS - list of sessions to initialize
 setup_tmux() {
 	local tmux_sessions_list=$(tmux ls | sed 's/://' | awk {'print $1'})	
-  if [[ $? = 0 ]]; then
+  if [[ $? == 0 ]]; then
     declare -A tmux_sessions_dictionary
     for session in ${tmux_sessions_list[@]}
     do
