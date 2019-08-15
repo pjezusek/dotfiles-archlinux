@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # Monitor configuration
-PRIMARY_MONITOR="HDMI-0"
-SECONDARY_MONITOR="DCP-3"
-SECONDARY_MONITOR_LOCATION="--left-of HDMI-0"
-RESOLUTION="1920x1080"
+# Needs xrandr
+PRIMARY_MONITOR="<Example: HDMI-0>"
+SECONDARY_MONITOR="<Example: DCP-3>"
+SECONDARY_MONITOR_LOCATION="<Example: --left-of HDMI-0>"
+RESOLUTION="<Example: 1920x1080>"
 
 # Tmux sessions
+# Needs teamocil https://github.com/remiprev/teamocil
 SESSIONS=(some tmux session names)

@@ -5,7 +5,7 @@ set $alt Mod1
 
 # set font
 font pango: Noto Sans 12
-#}}}
+# }}}
 
 # Autostart {{{
 exec --no-startup-id xsettingsd &
@@ -14,16 +14,93 @@ exec --no-startup-id feh --bg-fill ~/.wallpaper.png
 exec --no-startup-id compton -b
 exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
 exec --no-startup-id nm-applet
-#}}}
+# }}}
 
-# Key bindings {{{1
+# Layout {{{
+bar {
+  mode hide
+  hidden_state hide
+
+  position  top
+
+  font pango:Noto Sans, FontAwesome 12
+  strip_workspace_numbers yes
+
+  bindsym button4 nop
+  bindsym button5 nop
+  bindsym button1 nop
+
+  colors {
+    background #2f343f
+    statusline #2f343f
+    separator #4b5262
+
+    # colour of border, background, and text
+    focused_workspace	#2f343f	#bf616a	#d8dee8
+    active_workspace	#2f343f	#2f343f	#d8dee8
+    inactive_workspace	#2f343f	#2f343f	#d8dee8
+    urgent_workspace	#2f343f	#ebcb8b	#2f343f
+  }
+  status_command i3status
+}
+
+# window rules, you can find the window class using xprop
+for_window [class=".*"] border pixel 2
+
+# colour of border, background, text, indicator, and child_border
+client.focused			#bf616a #2f343f #d8dee8 #bf616a #e60073
+client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background		#2f343f
+
+# Workspaces definition {{{
+set $WS1 "1:&#xf120;"
+set $WS2 "2:&#xf269;"
+set $WS3 "3:&#xf0e0;"
+set $WS4 "4:&#xf530;"
+set $WS5 "5:&#xf86d;"
+set $WS6 "6:&#xf1e6;"
+set $WS7 "7:&#xf15c;"
+set $WS8 "8:&#xf1c9;"
+set $WS9 "9:&#xf188;"
+set $WS10 "10:&#xf095;"
+set $WS11 "11:&#xf11b;"
+set $WS12 "12:&#xf015;"
+set $WS13 "13:&#xf023;L"
+set $WS14 "14:&#xf023;P"
+# }}}
+# }}}
+
+# Workspace configuration {{{
+workspace $WS1 output HDMI-0
+workspace $WS2 output DP-3
+workspace $WS3 output HDMI-0
+workspace $WS4 output HDMI-0
+workspace $WS5 output HDMI-0
+workspace $WS6 output HDMI-0
+workspace $WS7 output HDMI-0
+workspace $WS8 output HDMI-0
+workspace $WS9 output DP-3
+workspace $WS10 output DP-3
+workspace $WS11 output HDMI-0
+workspace $WS12 output HDMI-0
+workspace $WS13 output DP-3
+workspace $WS14 output HDMI-0
+
+assign [class="Vimiv"] reading_watching
+assign [class="Evince"] pdf
+focus_on_window_activation focus
+# }}}
+
+# Key bindings {{{
 # start a terminal
 bindsym $super+Return exec termite
 
 # start dmenu (a program launcher)
 bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
 bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 12'
-bindsym $super+Shift+w exec rofi -lines 12 -padding 18 -width 60 -location 0 -show window -sidebar-mode -columns 3 -font 'Noto Sans 12'
 
 # kill focused window
 bindsym $super+c kill
@@ -61,64 +138,51 @@ bindsym $super+space floating toggle
 bindsym $super+Shift+space focus mode_toggle
 
 # switch to workspace
-bindsym $super+q workspace "terminal"
-bindsym $super+b workspace "browser"
-bindsym $super+m workspace "mailer"
-bindsym $super+w workspace "media"
-bindsym $super+g workspace "gimp"
-bindsym $super+r workspace "remote"
-bindsym $super+o workspace "office"
-bindsym $super+i workspace "ide"
-bindsym $super+v workspace "images"
-bindsym $super+e workspace "pdf"
+bindsym $super+q workspace $WS1
+bindsym $super+b workspace $WS2
+bindsym $super+m workspace $WS3
+bindsym $super+w workspace $WS4
+bindsym $super+g workspace $WS5
+bindsym $super+r workspace $WS6
+bindsym $super+o workspace $WS7
+bindsym $super+i workspace $WS8
+bindsym $super+z workspace $WS9
+bindsym $super+0 workspace $WS10
+bindsym $super+x workspace $WS11
+bindsym $super+1 workspace $WS12
 
 # move focused container to workspace
-bindsym $super+Shift+t move container to workspace "terminal"
-bindsym $super+Shift+b move container to workspace "browser"
-bindsym $super+Shift+w move container to workspace "media"
-jindsym $super+Shift+m move container to workspace "mailer"
-jindsym $super+Shift+g move container to workspace "gimp"
-bindsym $super+Shift+r move container to workspace "remote"
-bindsym $super+Shift+o move container to workspace "office"
-bindsym $super+Shift+i move container to workspace "ide"
-bindsym $super+Shift+v move container to workspace "images"
-bindsym $super+Shift+e move container to workspace "pdf"
-
-# exit i3
-bindsym $super+Shift+q exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+bindsym $super+Shift+q move container to workspace $WS1
+bindsym $super+Shift+b move container to workspace $WS2
+bindsym $super+Shift+m move container to workspace $WS3
+bindsym $super+Shift+w move container to workspace $WS4
+bindsym $super+Shift+g move container to workspace $WS5
+bindsym $super+Shift+r move container to workspace $WS6
+bindsym $super+Shift+o move container to workspace $WS7
+bindsym $super+Shift+i move container to workspace $WS8
+bindsym $super+Shift+z move container to workspace $WS9
+bindsym $super+Shift+0 move container to workspace $WS10
+bindsym $super+Shift+x move container to workspace $WS11
+bindsym $super+Shift+1 move container to workspace $WS12
 
 # Make the currently focused window a scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
 bindsym $super+equal [class="keepassxc"] scratchpad show
-bindsym $super+n [class="Termite"] scratchpad show
+bindsym $super+n [class="st"] scratchpad show
+
+# Safe zone
+bindsym $super+s exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo 0; exec pactl set-sink-volume alsa_output.pci-0000_01_00.1.hdmi-stereo 0; workspace $WS1; workspace $WS2
 # }}}
-
-# Workspace configuration {{{
-workspace "terminal" output HDMI-0
-workspace "browser" output DP-3
-workspace "mailer" output HDMI-0
-workspace "remote" output HDMI-0
-workspace "office" output HDMI-0
-workspace "ide" output HDMI-0
-workspace "images" output DP-3
-workspace "media" output HDMI-0
-workspace "private-left" output DP-3
-workspace "private-right" output HDMI-0
-
-assign [class="Vimiv"] images
-assign [class="Evince"] pdf
-focus_on_window_activation focus
-#}}}
 
 # Modes {{{
 bindsym $super+p mode "private"
 mode "private" {
-  bindsym l workspace "private-left"; mode "default"
-  bindsym r workspace "private-right"; mode "default"
+  bindsym l workspace $WS13; mode "default"
+  bindsym r workspace $WS14; mode "default"
 
-  bindsym Shift+l move container to workspace "private-left"; mode "default"
-  bindsym Shift+r move container to workspace "private-right"; mode "default"
+  bindsym Shift+l move container to workspace $WS13; mode "default"
+  bindsym Shift+r move container to workspace $WS14; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -138,61 +202,21 @@ mode "$mode_system" {
   bindsym Escape mode "default"
 }
 
-# open programs
-bindsym $super+x mode "$mode_launcher"
-mode "$mode_launcher" {
-    bindsym f exec firefox; mode "default"
-    bindsym t exec thunderbird; mode "default"
-    bindsym k exec keepassxc; mode "default"
-    bindsym l exec libreoffice; mode "default"
-    bindsym g exec gimp; mode "default"
-
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
-}
-
 bindsym $super+a mode "$mode_audio"
 # Pulse Audio controls
 mode "$mode_audio" {
-  bindsym $super+u exec pactl set-sink-volume 1 +5% #increase sound volume
-  bindsym $super+i exec pactl set-sink-volume 1 -5% #decrease sound volume
-  bindsym $super+m exec pactl set-sink-mute 1 toggle # mute sound
+  bindsym i exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo +5% #increase sound volume
+  bindsym d exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo -5% #decrease sound volume
+  bindsym t exec pactl set-sink-mute alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo toggle # mute sound
+
+  bindsym Control+i exec pactl set-sink-volume alsa_output.pci-0000_01_00.1.hdmi-stereo +5% #increase sound volume
+  bindsym Control+d exec pactl set-sink-volume alsa_output.pci-0000_01_00.1.hdmi-stereo -5% #decrease sound volume
+  bindsym Control+t exec pactl set-sink-mute alsa_output.pci-0000_01_00.1.hdmi-stereo toggle # mute sound
+
+  bindsym Escape mode "default"
 }
-#}}}
+# }}}
 
-# Layout {{{
-bar {
-  mode hide
-  hidden_state hide
-
-  position  top
-
-  bindsym button4 nop
-  bindsym button5 nop
-  bindsym button1 nop
-
-  colors {
-    background #2f343f
-    statusline #2f343f
-    separator #4b5262
-
-    # colour of border, background, and text
-    focused_workspace	#2f343f	#bf616a	#d8dee8
-    active_workspace	#2f343f	#2f343f	#d8dee8
-    inactive_workspace	#2f343f	#2f343f	#d8dee8
-    urgent_workspace	#2f343f	#ebcb8b	#2f343f
-  }
-  status_command i3status
-}
-
-# window rules, you can find the window class using xprop
-for_window [class=".*"] border pixel 2
-
-# colour of border, background, text, indicator, and child_border
-client.focused			#bf616a #2f343f #d8dee8 #bf616a #e60073
-client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.background		#2f343f
-#}}}
+# Fixes {{{
+for_window [class="^jetbrains-.+"][window_type=dialog] focus
+# }}}

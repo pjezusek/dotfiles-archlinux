@@ -2,7 +2,7 @@
 
 # Setups monitor's resolution, panning and position
 #
-# Needs:
+# ENV variables:
 # - PRIMARY_MONITOR - name of primary monitor
 # - SECONDARY_MONITOR - name of secondary monitor (optional)
 # - SECONDARY_MONITOR_LOCATION - location of secondary monitor (optional)
@@ -16,7 +16,7 @@ setup_monitors() {
 
 # Initializes tmux sessions
 #
-# Needs:
+# ENV variables:
 # - SESSIONS - list of sessions to initialize
 setup_tmux() {
 	local tmux_sessions_list=$(tmux ls | sed 's/://' | awk {'print $1'})	

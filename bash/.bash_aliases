@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # reload bashrc
 alias bashre="source ~/.bashrc"
 
