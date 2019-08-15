@@ -24,8 +24,8 @@ declare -A COPY_OPTIONS=(
   ["powerline_themes"]="$HOME/.config/powerline/themes"
   ["powerline_colors.json"]="$HOME/.config/powerline/colors.json"
   ["powerline_config.json"]="$HOME/.config/powerline/config.json"
-  # termite
-  ["termite_config"]="$HOME/.config/termite/config"
+  # st
+  ["st_config"]="$HOME/programs/st/"
   # tmux
   ["tmux_.tmux.conf"]="$HOME/.tmux.conf"
   # xresources
