@@ -99,8 +99,7 @@ focus_on_window_activation focus
 bindsym $super+Return exec termite
 
 # start dmenu (a program launcher)
-bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
-bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 12'
+bindsym $super+d exec "rofi -combi-modi window,drun -show combi -modi combi -font 'Source Code Pro 12'"
 
 # kill focused window
 bindsym $super+c kill
