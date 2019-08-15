@@ -1,2 +1,1 @@
-# Config files
-Repository for configuration files
+# Dotfiles for archlinux
