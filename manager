@@ -25,7 +25,7 @@ declare -A COPY_OPTIONS=(
   ["powerline_colors.json"]="$HOME/.config/powerline/colors.json"
   ["powerline_config.json"]="$HOME/.config/powerline/config.json"
   # st
-  ["st_config"]="$HOME/programs/st/"
+  ["st_config.h"]="$HOME/programs/st/"
   # tmux
   ["tmux_.tmux.conf"]="$HOME/.tmux.conf"
   # xresources
