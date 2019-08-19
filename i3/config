@@ -96,7 +96,7 @@ focus_on_window_activation focus
 
 # Key bindings {{{
 # start a terminal
-bindsym $super+Return exec termite
+bindsym $super+Return exec st
 
 # start dmenu (a program launcher)
 bindsym $super+d exec "rofi -combi-modi window,drun -show combi -modi combi -font 'Source Code Pro 12'"

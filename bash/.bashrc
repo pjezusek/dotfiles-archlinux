@@ -48,7 +48,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 neofetch
 
 # run tmux
-if [[ $TERM == "xterm-termite" ]] && [ -z $TMUX ]; then
+if [[ $TERM == "screen-256color" ]] && [ -z $TMUX ] && [ -z $NO_TMUX ]; then
   setup_tmux
 fi
 # }}}
