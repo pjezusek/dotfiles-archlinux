@@ -56,20 +56,38 @@ client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background		#2f343f
 
 # Workspaces definition {{{
+# terminal
 set $WS1 "1:&#xf120;"
+# browser
 set $WS2 "2:&#xf269;"
+# mail client
 set $WS3 "3:&#xf0e0;"
+# watching/reading
 set $WS4 "4:&#xf530;"
+# gimp
 set $WS5 "5:&#xf86d;"
+# remote
 set $WS6 "6:&#xf1e6;"
+# office
 set $WS7 "7:&#xf15c;"
+# ide
 set $WS8 "8:&#xf1c9;"
+# debug
 set $WS9 "9:&#xf188;"
+# communication
 set $WS10 "10:&#xf095;"
+# games
 set $WS11 "11:&#xf11b;"
+# home
 set $WS12 "12:&#xf015;"
+# private-left
 set $WS13 "13:&#xf023;L"
+# private-right
 set $WS14 "14:&#xf023;P"
+# repository manager
+set $WS15 "15:&#xf3a6;"
+# docker manager
+set $WS16 "16:&#xf395;"
 # }}}
 # }}}
 
@@ -88,9 +106,11 @@ workspace $WS11 output HDMI-0
 workspace $WS12 output HDMI-0
 workspace $WS13 output DP-3
 workspace $WS14 output HDMI-0
+workspace $WS15 output DP-3
+workspace $WS16 output DP-3
 
-assign [class="Vimiv"] reading_watching
-assign [class="Evince"] pdf
+assign [class="Vimiv"] $WS4
+assign [class="Evince"] $WS4
 focus_on_window_activation focus
 # }}}
 
@@ -98,8 +118,8 @@ focus_on_window_activation focus
 # start a terminal
 bindsym $super+Return exec st
 
-# start dmenu (a program launcher)
-bindsym $super+d exec "rofi -combi-modi window,drun -show combi -modi combi -font 'Source Code Pro 12'"
+# start rofi
+bindsym F1 exec "rofi -combi-modi window,drun -show combi -modi combi -font 'Source Code Pro 12'"
 
 # kill focused window
 bindsym $super+c kill
@@ -149,6 +169,8 @@ bindsym $super+z workspace $WS9
 bindsym $super+0 workspace $WS10
 bindsym $super+x workspace $WS11
 bindsym $super+1 workspace $WS12
+bindsym $super+v workspace $WS15
+bindsym $super+d workspace $WS16
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $WS1
@@ -163,12 +185,14 @@ bindsym $super+Shift+z move container to workspace $WS9
 bindsym $super+Shift+0 move container to workspace $WS10
 bindsym $super+Shift+x move container to workspace $WS11
 bindsym $super+Shift+1 move container to workspace $WS12
+bindsym $super+Shift+v move container to workspace $WS15
+bindsym $super+Shift+d move container to workspace $WS16
 
 # Make the currently focused window a scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
 bindsym $super+equal [class="keepassxc"] scratchpad show
-bindsym $super+n [class="st"] scratchpad show
+bindsym $super+n [class="screen-256color"] scratchpad show
 
 # Safe zone
 bindsym $super+s exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo 0; exec pactl set-sink-volume alsa_output.pci-0000_01_00.1.hdmi-stereo 0; workspace $WS1; workspace $WS2
