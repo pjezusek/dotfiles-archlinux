@@ -119,10 +119,13 @@ focus_on_window_activation focus
 bindsym $super+Return exec st
 
 # start rofi
-bindsym F1 exec "rofi -combi-modi window,drun -show combi -modi combi -font 'Source Code Pro 12'"
+bindsym F1 exec "rofi -show drun -font 'Source Code Pro 12'"
 
 # kill focused window
 bindsym $super+c kill
+
+# print screen
+bindsym Print exec flameshot gui
 
 # change focus
 bindsym $super+h focus left
@@ -164,7 +167,7 @@ bindsym $super+w workspace $WS4
 bindsym $super+g workspace $WS5
 bindsym $super+r workspace $WS6
 bindsym $super+o workspace $WS7
-bindsym $super+i workspace $WS8
+bindsym $super+e workspace $WS8
 bindsym $super+z workspace $WS9
 bindsym $super+0 workspace $WS10
 bindsym $super+x workspace $WS11
@@ -180,7 +183,7 @@ bindsym $super+Shift+w move container to workspace $WS4
 bindsym $super+Shift+g move container to workspace $WS5
 bindsym $super+Shift+r move container to workspace $WS6
 bindsym $super+Shift+o move container to workspace $WS7
-bindsym $super+Shift+i move container to workspace $WS8
+bindsym $super+Shift+e move container to workspace $WS8
 bindsym $super+Shift+z move container to workspace $WS9
 bindsym $super+Shift+0 move container to workspace $WS10
 bindsym $super+Shift+x move container to workspace $WS11
