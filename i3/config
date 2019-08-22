@@ -116,10 +116,10 @@ focus_on_window_activation focus
 
 # Key bindings {{{
 # start a terminal
-bindsym $super+Return exec st
+bindsym $super+Return exec kitty
 
 # start rofi
-bindsym F1 exec "rofi -show drun -font 'Source Code Pro 12'"
+bindsym F3 exec "rofi -show drun -font 'Source Code Pro 12'"
 
 # kill focused window
 bindsym $super+c kill
