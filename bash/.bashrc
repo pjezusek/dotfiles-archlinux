@@ -19,7 +19,8 @@ fi
 
 # Exports {{{
 # set prompt
-export PS1="\[\033[38;5;118m\][\[$(tput sgr0)\]\[\033[38;5;27m\]\w\[$(tput sgr0)\]\[\033[38;5;118m\]]\\$\[$(tput sgr0)\] "
+PS1="\[\033[38;5;118m\][\[$(tput sgr0)\]\[\033[38;5;27m\]\w\[$(tput sgr0)\]\[\033[38;5;118m\]]\\$\[$(tput sgr0)\] "
+export PS1
 
 # set fzf
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'

@@ -2,11 +2,11 @@
 
 # Monitor configuration
 # Needs xrandr
-PRIMARY_MONITOR="<Example: HDMI-0>"
-SECONDARY_MONITOR="<Example: DCP-3>"
-SECONDARY_MONITOR_LOCATION="<Example: --left-of HDMI-0>"
-RESOLUTION="<Example: 1920x1080>"
+export PRIMARY_MONITOR="<Example: HDMI-0>"
+export SECONDARY_MONITOR="<Example: DCP-3>"
+export SECONDARY_MONITOR_LOCATION="<Example: --left-of HDMI-0>"
+export RESOLUTION="<Example: 1920x1080>"
 
 # Tmux sessions
 # Needs teamocil https://github.com/remiprev/teamocil
-SESSIONS=(some tmux session names)
+export SESSIONS=(some tmux session names)
