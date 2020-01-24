@@ -117,6 +117,8 @@ set $WS14 "14:&#xf023;P"
 set $WS15 "15:&#xf3a6;"
 # docker manager
 set $WS16 "16:&#xf395;"
+# virtualbox
+set $WS17 "17:&#xf16b;"
 # }}}
 # }}}
 
@@ -137,6 +139,7 @@ workspace $WS13 output DP-3
 workspace $WS14 output HDMI-0
 workspace $WS15 output DP-3
 workspace $WS16 output DP-3
+workspace $WS17 output DP-3
 
 assign [class="Vimiv"] $WS4
 assign [class="Evince"] $WS4
@@ -194,15 +197,16 @@ bindsym $super+e workspace $WS2
 bindsym $super+2 workspace $WS3
 bindsym $super+1 workspace $WS4
 bindsym $super+t workspace $WS5
-bindsym $super+3 workspace $WS6
+bindsym $super+r workspace $WS6
 bindsym $super+x workspace $WS7
 bindsym $super+z workspace $WS8
 bindsym $super+w workspace $WS9
 bindsym $super+0 workspace $WS10
 bindsym $super+g workspace $WS11
-bindsym $super+r workspace $WS12
+bindsym $super+3 workspace $WS12
 bindsym $super+s workspace $WS15
 bindsym $super+d workspace $WS16
+bindsym $super+v workspace $WS17
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $WS1
@@ -210,20 +214,21 @@ bindsym $super+Shift+e move container to workspace $WS2
 bindsym $super+Shift+2 move container to workspace $WS3
 bindsym $super+Shift+1 move container to workspace $WS4
 bindsym $super+Shift+t move container to workspace $WS5
-bindsym $super+Shift+3 move container to workspace $WS6
+bindsym $super+Shift+r move container to workspace $WS6
 bindsym $super+Shift+x move container to workspace $WS7
 bindsym $super+Shift+z move container to workspace $WS8
 bindsym $super+Shift+w move container to workspace $WS9
 bindsym $super+Shift+0 move container to workspace $WS10
 bindsym $super+Shift+g move container to workspace $WS11
-bindsym $super+Shift+r move container to workspace $WS12
+bindsym $super+Shift+3 move container to workspace $WS12
 bindsym $super+Shift+s move container to workspace $WS15
 bindsym $super+Shift+d move container to workspace $WS16
+bindsym $super+Shift+v wmove container to workspace $WS17
 
 # Make the currently focused window a scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
-bindsym $super+a [class="keepassxc"] scratchpad show
+bindsym $super+a [class="KeePassXC"] scratchpad show
 
 # Safe zone
 bindsym $alt+Control+s exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo 0; exec pactl set-sink-volume alsa_output.pci-0000_01_00.1.hdmi-stereo 0; workspace $WS1; workspace $WS2
@@ -292,6 +297,18 @@ mode "resize" {
         bindcode 36 mode "default"
         bindcode 9 mode "default"
         bindcode $mod+27 mode "default"
+}
+
+bindsym $alt+m mode "move" focus floating
+mode "move" {
+    bindsym h     move left
+    bindsym j     move down
+    bindsym k     move up
+    bindsym l     move right
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 # }}}
 

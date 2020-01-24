@@ -4,17 +4,11 @@
 [[ $- != *i* ]] && return
 
 # Includes {{{
-if [[ -f "$HOME/.bash_functions" ]]; then
-  source "$HOME/.bash_functions"
-fi
+[[ -f "$HOME/.bash_functions" ]] && source "$HOME/.bash_functions"
 
-if [[ -f "$HOME/.bash_aliases" ]]; then
-  source "$HOME/.bash_aliases"
-fi
+[[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 
-if [[ -f "$HOME/.bash_env" ]]; then
-  source "$HOME/.bash_env"
-fi
+[[ -f "$HOME/.bash_env" ]] && source "$HOME/.bash_env"
 # }}}
 
 # Exports {{{
@@ -26,6 +20,9 @@ export PS1
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+
+# Add pyenv to PATH for scripting.
+export PATH="$PATH:$HOME/.pyenv/bin"
 # }}}
 
 # Initializers {{{
@@ -35,8 +32,6 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 # Initialize bookmarks
 source ~/.local/bin/bashmarks.sh
 
-# Add pyenv to PATH for scripting.
-export PATH="$PATH:$HOME/.pyenv/bin"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 

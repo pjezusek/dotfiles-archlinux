@@ -64,7 +64,9 @@ handle_extension() {
             mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | fmt -w ${PV_WIDTH} && exit 5
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
-
+        json)
+          jq --color-output . "${FILE_PATH}" && exit 5
+          exit 1;;
         # BitTorrent
         torrent)
             transmission-show -- "${FILE_PATH}" && exit 5
@@ -83,6 +85,10 @@ handle_extension() {
             lynx -dump -- "${FILE_PATH}" && exit 5
             elinks -dump "${FILE_PATH}" && exit 5
             ;; # Continue with next handler on failure
+
+        csv)
+            head -n 50 "${FILE_PATH}" && exit 5
+            ;;
     esac
 }
 
@@ -140,14 +146,14 @@ handle_image() {
              { fn=$(bsdtar --list --file "${FILE_PATH}") && bsd=1 && tar=""; } || \
              { [ "$rar" ] && fn=$(unrar lb -p- -- "${FILE_PATH}"); } || \
              { [ "$zip" ] && fn=$(zipinfo -1 -- "${FILE_PATH}"); } || return
-        
+
              fn=$(echo "$fn" | python -c "import sys; import mimetypes as m; \
                      [ print(l, end='') for l in sys.stdin if \
                        (m.guess_type(l[:-1])[0] or '').startswith('image/') ]" |\
                  sort -V | head -n 1)
              [ "$fn" = "" ] && return
              [ "$bsd" ] && fn=$(printf '%b' "$fn")
-        
+
              [ "$tar" ] && tar --extract --to-stdout \
                  --file "${FILE_PATH}" -- "$fn" > "${IMAGE_CACHE_PATH}" && exit 6
              fe=$(echo -n "$fn" | sed 's/[][*?\]/\\\0/g')
@@ -179,8 +185,8 @@ handle_mime() {
                 local pygmentize_format='terminal'
                 local highlight_format='ansi'
             fi
-            highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
-                --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" && exit 5
+            head -n 50 "${FILE_PATH}" | highlight --syntax-by-name="${FILE_PATH}"  --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
+                --style="${HIGHLIGHT_STYLE}" --force && exit 5
             # pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
             exit 2;;
 
