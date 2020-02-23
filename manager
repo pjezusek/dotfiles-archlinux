@@ -5,7 +5,7 @@
 shopt -s dotglob
 
 BACKUP_DIR="$HOME/.config_backup/$(date +%Y%m%d%H%M%S)"
-AVAILABLE_CONFIGS=(bash git i3 powerline tmux xresources ranger kitty all)
+AVAILABLE_CONFIGS=(bash git i3 powerline tmux xresources ranger kitty fish all)
 declare -A COPY_OPTIONS=(
   # bash
   ["bash_.bash_profile"]="$HOME/.bash_profile"
@@ -34,6 +34,12 @@ declare -A COPY_OPTIONS=(
   ["ranger_rc.conf"]="$HOME/.config/ranger/rc.conf"
   # kitty
   ["kitty_kitty.conf"]="$HOME/.config/kitty/kitty.conf"
+  # fish
+  ["fish_conf.d"]="$HOME/.config/fish/conf.d"
+  ["fish_functions"]="$HOME/.config/fish/functions"
+  ["fish_fish_variables"]="$HOME/.config/fish/fish_variables"
+  ["fish_completions"]="$HOME/.config/fish/completions"
+  ["fish_config.fish"]="$HOME/.config/fish/config.fish"
 )
 
 # Prints help
