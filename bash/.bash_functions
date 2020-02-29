@@ -1,19 +1,5 @@
 #!/bin/bash
 
-# Setups monitor's resolution, panning and position
-#
-# ENV variables:
-# - PRIMARY_MONITOR - name of primary monitor
-# - SECONDARY_MONITOR - name of secondary monitor (optional)
-# - SECONDARY_MONITOR_LOCATION - location of secondary monitor (optional)
-# - RESOLUTION - monitors resolution
-setup_monitors() {
-  xrand --output "$PRIMARY_MONITOR" --mode "$RESOLUTION" --fb "$RESOLUTION" --panning "$RESOLUTION" --primary
-  if [[ $SECONDARY_MONITOR != "" ]]; then
-    xrand --output "$SECONDARY_MONITOR" --mode "$RESOLUTION" --panning "$RESOLUTION" "$SECONDARY_MONITOR_LOCATION"
-  fi
-}
-
 # Initializes tmux sessions
 #
 # ENV variables:
