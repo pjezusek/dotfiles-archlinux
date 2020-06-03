@@ -1,1 +1,1 @@
-/home/pjezusek/.local/share/omf/themes/default/fish_prompt.fish
+/home/pjezusek/.local/share/omf/themes/fishbone/fish_prompt.fish

@@ -5,22 +5,28 @@ set $alt Mod1
 
 # set font
 font pango: Noto Sans 12
+
+for_window [class=".*"] border pixel 0
+
+gaps inner 10
+gaps outer 0
+smart_gaps on
+smart_borders on
 # }}}
 
 # Autostart {{{
-exec --no-startup-id xsettingsd &
-exec --no-startup-id xrandr --output DP-3 --auto --left-of HDMI-0
-exec --no-startup-id feh --bg-fill ~/.wallpaper.png
-exec --no-startup-id compton -b
+exec --no-startup-id picom -b
+exec --no-startup-id xrandr --output DP-5 --auto --left-of HDMI-0 --output HDMI-1 --primary
+exec --no-startup-id feh --bg-fill ~/.config/wallpaper.jpg
 exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
 exec --no-startup-id nm-applet
 # }}}
 
 # Layout {{{
 bar {
+  output HDMI-0
   mode hide
   hidden_state hide
-  output HDMI-0
 
   position  top
 
@@ -37,18 +43,17 @@ bar {
     separator #4b5262
 
     # colour of border, background, and text
-    focused_workspace	#2f343f	#bf616a	#d8dee8
-    active_workspace	#2f343f	#2f343f	#d8dee8
-    inactive_workspace	#2f343f	#2f343f	#d8dee8
-    urgent_workspace	#2f343f	#ebcb8b	#2f343f
+    focused_workspace   #2f343f #bf616a #d8dee8
+    active_workspace    #2f343f #2f343f #d8dee8
+    inactive_workspace  #2f343f #2f343f #d8dee8
+    urgent_workspace    #2f343f #ebcb8b #2f343f
   }
   status_command i3status
 }
-
 bar {
   mode hide
   hidden_state hide
-  output DP-3
+  output DP-5
   tray_output none
 
   position top
@@ -66,23 +71,20 @@ bar {
     separator #4b5262
 
     # colour of border, background, and text
-    focused_workspace	#2f343f	#bf616a	#d8dee8
-    active_workspace	#2f343f	#2f343f	#d8dee8
-    inactive_workspace	#2f343f	#2f343f	#d8dee8
-    urgent_workspace	#2f343f	#ebcb8b	#2f343f
+    focused_workspace   #2f343f #bf616a #d8dee8
+    active_workspace    #2f343f #2f343f #d8dee8
+    inactive_workspace  #2f343f #2f343f #d8dee8
+    urgent_workspace    #2f343f #ebcb8b #2f343f
   }
 }
-
-# window rules, you can find the window class using xprop
-for_window [class=".*"] border pixel 2
-
 # colour of border, background, text, indicator, and child_border
-client.focused			#bf616a #2f343f #d8dee8 #bf616a #e60073
-client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.background		#2f343f
+client.focused                  #bf616a #2f343f #d8dee8 #bf616a #e60073
+client.focused_inactive #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused                #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent                   #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder              #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background               #2f343f
+#}}}
 
 # Workspaces definition {{{
 # terminal
@@ -119,30 +121,30 @@ set $WS15 "15:&#xf3a6;"
 set $WS16 "16:&#xf395;"
 # virtualbox
 set $WS17 "17:&#xf16b;"
-# }}}
+# work
+set $WS18 "18:&#xf0b1;"
 # }}}
 
 # Workspace configuration {{{
 workspace $WS1 output HDMI-0
-workspace $WS2 output DP-3
+workspace $WS2 output DP-5
 workspace $WS3 output HDMI-0
 workspace $WS4 output HDMI-0
 workspace $WS5 output HDMI-0
 workspace $WS6 output HDMI-0
 workspace $WS7 output HDMI-0
 workspace $WS8 output HDMI-0
-workspace $WS9 output DP-3
-workspace $WS10 output DP-3
+workspace $WS9 output DP-5
+workspace $WS10 output DP-5
 workspace $WS11 output HDMI-0
 workspace $WS12 output HDMI-0
-workspace $WS13 output DP-3
+workspace $WS13 output DP-5
 workspace $WS14 output HDMI-0
-workspace $WS15 output DP-3
-workspace $WS16 output DP-3
-workspace $WS17 output DP-3
+workspace $WS15 output DP-5
+workspace $WS16 output DP-5
+workspace $WS17 output DP-5
+workspace $WS18 output DP-5
 
-assign [class="Vimiv"] $WS4
-assign [class="Evince"] $WS4
 focus_on_window_activation focus
 # }}}
 
@@ -207,6 +209,7 @@ bindsym $super+3 workspace $WS12
 bindsym $super+s workspace $WS15
 bindsym $super+d workspace $WS16
 bindsym $super+v workspace $WS17
+bindsym $super+m workspace $WS18
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $WS1
@@ -223,15 +226,13 @@ bindsym $super+Shift+g move container to workspace $WS11
 bindsym $super+Shift+3 move container to workspace $WS12
 bindsym $super+Shift+s move container to workspace $WS15
 bindsym $super+Shift+d move container to workspace $WS16
-bindsym $super+Shift+v wmove container to workspace $WS17
+bindsym $super+Shift+v move container to workspace $WS17
+bindsym $super+Shift+m move container to workspace $WS18
 
 # Make the currently focused window a scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
 bindsym $super+a [class="KeePassXC"] scratchpad show
-
-# Safe zone
-bindsym $alt+Control+s exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo 0; exec pactl set-sink-volume alsa_output.pci-0000_01_00.1.hdmi-stereo 0; workspace $WS1; workspace $WS2
 # }}}
 
 # Modes {{{
@@ -249,20 +250,19 @@ mode "private" {
 
 bindsym $alt+Pause mode "system"
 mode "system" {
-  bindsym l exec --no-startup-id i3lock --color=282828, mode "default"
+  bindsym l exec --no-startup-id i3lock -t -i ~/.config/lock_screen.png, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
-  bindsym s exec --no-startup-id i3lock --color=282828 && systemctl suspend, mode "default"
-  bindsym h exec --no-startup-id i3lock --color=282828 && systemctl hibernate, mode "default"
+  bindsym s exec --no-startup-id i3lock -t -i ~/.config/lock_screen.png && systemctl suspend, mode "default"
+  bindsym h exec --no-startup-id i3lock -t -i ~/.config/lock_screen.png && systemctl hibernate, mode "default"
   bindsym r exec --no-startup-id systemctl reboot, mode "default"
   bindsym p exec --no-startup-id systemctl poweroff, mode "default"
 
-  # back to normal: Enter or Escape
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
 
-bindsym $alt+a mode "audio"
 # Pulse Audio controls
+bindsym $alt+a mode "audio"
 mode "audio" {
   bindsym i exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo +5% #increase sound volume
   bindsym d exec pactl set-sink-volume alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo -5% #decrease sound volume
@@ -272,41 +272,28 @@ mode "audio" {
   bindsym Control+d exec pactl set-sink-volume alsa_output.pci-0000_01_00.1.hdmi-stereo -5% #decrease sound volume
   bindsym Control+t exec pactl set-sink-mute alsa_output.pci-0000_01_00.1.hdmi-stereo toggle # mute sound
 
+  bindsym Return mode "default"
   bindsym Escape mode "default"
 }
+# Resize
 bindsym $alt+Insert mode "resize"
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym l resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym j resize grow width 10 px or 10 ppt
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindcode 44 resize shrink width 10 px or 10 ppt
-        bindcode 45 resize grow height 10 px or 10 ppt
-        bindcode 46 resize shrink height 10 px or 10 ppt
-        bindcode 47 resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindcode 113 resize shrink width 10 px or 10 ppt
-        bindcode 116 resize grow height 10 px or 10 ppt
-        bindcode 111 resize shrink height 10 px or 10 ppt
-        bindcode 114 resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape or $mod+r
-        bindcode 36 mode "default"
-        bindcode 9 mode "default"
-        bindcode $mod+27 mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
-
+# Move
 bindsym $alt+m mode "move" focus floating
 mode "move" {
-    bindsym h     move left
-    bindsym j     move down
-    bindsym k     move up
-    bindsym l     move right
+    bindsym h     move left 5 px
+    bindsym j     move down 5 px
+    bindsym k     move up 5 px
+    bindsym l     move right 5 px
 
-    # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
