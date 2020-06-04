@@ -12,16 +12,12 @@ declare -A COPY_OPTIONS=(
   ["bash_.bashrc"]="$HOME/.bashrc"
   ["bash_.bash_aliases"]="$HOME/.bash_aliases"
   ["bash_.bash_functions"]="$HOME/.bash_functions"
+  ["bash_.bash_env"]="$HOME/.bash_env"
   # git
   ["git_.gitconfig"]="$HOME/.gitconfig"
   # i3
   ["i3_config"]="$HOME/.config/i3/config"
   ["i3_i3status"]="$HOME/.config/i3status"
-  # powerline
-  ["powerline_colorschemes"]="$HOME/.config/powerline/colorschemes"
-  ["powerline_themes"]="$HOME/.config/powerline/themes"
-  ["powerline_colors.json"]="$HOME/.config/powerline/colors.json"
-  ["powerline_config.json"]="$HOME/.config/powerline/config.json"
   # tmux
   ["tmux_.tmux.conf"]="$HOME/.tmux.conf"
   # xresources
@@ -34,6 +30,8 @@ declare -A COPY_OPTIONS=(
   ["ranger_rc.conf"]="$HOME/.config/ranger/rc.conf"
   # kitty
   ["kitty_kitty.conf"]="$HOME/.config/kitty/kitty.conf"
+  ["kitty_kitty-themes"]="$HOME/.config/kitty/kitty-themes"
+  ["kitty_theme.conf"]="$HOME/.config/kitty/theme.conf"
   # fish
   ["fish_conf.d"]="$HOME/.config/fish/conf.d"
   ["fish_functions"]="$HOME/.config/fish/functions"
