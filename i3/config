@@ -229,10 +229,6 @@ bindsym $super+a [class="KeePassXC"] scratchpad show
 # }}}
 
 # Assign workspace {{{
-# Browser
-assign [class="firefox"] $browser_ws
-# Debug
-assign [class="Google-chrome"] $debug_ws
 # Mail
 assign [class="Thunderbird"] $mail_client_ws
 # Gimp
