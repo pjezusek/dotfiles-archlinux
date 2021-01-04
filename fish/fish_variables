@@ -6,6 +6,7 @@ SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_cp:cp\x20\x2dvi
 SETUVAR _fish_abbr_diff:diff\x20\x2d\x2dcolor\x3dauto
 SETUVAR _fish_abbr_grep:grep\x20\x2d\x2dcolor\x3dauto
+SETUVAR _fish_abbr_lg:lazygit
 SETUVAR _fish_abbr_ln:ln\x20\x2dvi
 SETUVAR _fish_abbr_ls:ls\x20\x2daltr\x20\x2d\x2dcolor\x3dauto
 SETUVAR _fish_abbr_mv:mv\x20\x2dvi
