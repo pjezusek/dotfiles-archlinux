@@ -6,6 +6,8 @@ set $Monitor_1 HDMI-0
 set $Monitor_2 DP-5
 set $Audio_1 alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo
 set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
+set $Pad "HUION Huion Tablet_H640P Pad pad"
+set $Stylus "HUION Huion Tablet_H640P Stylus"
 
 # set font
 font pango: Noto Sans 12
@@ -26,7 +28,16 @@ exec --no-startup-id pulseaudio -D
 exec --no-startup-id flameshot &
 exec --no-startup-id nm-applet
 exec --no-startup-id dunst
+exec --no-startup-id blueman-applet
 exec --no-startup-id nextcloud
+exec --no-startup-id thunderbird
+exec --no-startup-id keepassxc
+exec --no-startup-id kitty
+exec --no-startup-id xinput map-to-output 18 $Monitor_2
+exec --no-startup-id xinput map-to-output 19 $Monitor_2
+exec --no-startup-id xinput map-to-output 20 $Monitor_2
+exec --no-startup-id xinput map-to-output 21 $Monitor_2
+exec --no-startup-id xsetwacom set $Pad button 1 key lsuper n
 # }}}
 
 # Layout {{{
@@ -125,6 +136,8 @@ set $private_left_ws "13:&#xf023;L"
 set $private_right_ws "14:&#xf023;P"
 # config
 set $config "15:&#xf013;"
+# notes
+set $notes "16:&#xf249;"
 # }}}
 
 # Workspace configuration {{{
@@ -132,7 +145,7 @@ workspace $terminal_ws output $Monitor_1
 workspace $browser_ws output $Monitor_2
 workspace $mail_client_ws output $Monitor_1
 workspace $watching_reading_ws output $Monitor_1
-workspace $gimp_ws output $Monitor_1
+workspace $gimp_ws output $Monitor_2
 workspace $remote_ws output $Monitor_1
 workspace $office_ws output $Monitor_1
 workspace $ide_ws output $Monitor_1
@@ -143,6 +156,7 @@ workspace $home_ws output $Monitor_1
 workspace $private_left_ws output $Monitor_2
 workspace $private_right_ws output $Monitor_1
 workspace $config output $Monitor_2
+workspace $notes output $Monitor_2
 
 focus_on_window_activation focus
 # }}}
@@ -206,6 +220,7 @@ bindsym $super+0 workspace $communication_ws
 bindsym $super+g workspace $games_ws
 bindsym $super+3 workspace $home_ws
 bindsym $super+c workspace $config
+bindsym $super+n workspace $notes
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $terminal_ws
@@ -221,8 +236,10 @@ bindsym $super+Shift+0 move container to workspace $communication_ws
 bindsym $super+Shift+g move container to workspace $games_ws
 bindsym $super+Shift+3 move container to workspace $home_ws
 bindsym $super+Shift+c move container to workspace $config
+bindsym $super+Shift+n move container to workspace $notes
 
 # Make the currently focused window a scratchpad
+for_window [class="KeePassXC"] move scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
 bindsym $super+a [class="KeePassXC"] scratchpad show
@@ -254,6 +271,8 @@ assign [class="org.remmina.Remmina"] $remote_ws
 assign [class="Filezilla"] $remote_ws
 # Config
 assign [class="Pavucontrol"] $config
+# Notes
+assign [class="Write"] $notes
 # }}}
 
 # Modes {{{
