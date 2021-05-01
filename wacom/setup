@@ -1,0 +1,30 @@
+#!/bin/bash
+export DISPLAY=:0.0
+export XAUTHORITY=/home/pjezusek/.Xauthority
+
+PAD="HUION Huion Tablet_H640P Pad pad"
+STYLUS="HUION Huion Tablet_H640P stylus"
+SCREEN="DP-5"
+set_pad () {
+  xsetwacom set "$PAD" "Button" "1" "key lsuper n"
+  xsetwacom set "$PAD" "Button" "2" "key Ctrl s"
+  xsetwacom set "$PAD" "Button" "3" "key +up"
+  xsetwacom set "$PAD" "Button" "8" "key +down"
+  xsetwacom set "$PAD" "Button" "9" "key Ctrl z"
+  xsetwacom set "$PAD" "Button" "10" "key Ctrl y"
+}
+
+set_stylus () {
+  xsetwacom set "$STYLUS" "Button" "1" "button +1"
+  xsetwacom set "$STYLUS" "Button" "2" "key +shift"
+  xsetwacom set "$STYLUS" "Button" "3" "button +2"
+}
+
+set_screen () {
+  xinput map-to-output "$STYLUS" $SCREEN
+}
+
+sleep 2
+set_pad
+set_stylus
+set_screen
