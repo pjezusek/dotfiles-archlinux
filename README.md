@@ -12,7 +12,8 @@
   - ttf-fira-code - font,
   - nerd-fonts-fira-code - nerd font (fira code),
   - mlocate - locate files in the whole system,
-  - base-devel - base tools for building.
+  - base-devel - base tools for building,
+  - gcc - GNU compiler collection.
 - Terminal:
   - kitty - terminal,
   - tmux - terminal multiplexer,
@@ -51,4 +52,6 @@
   - teamocil (https://github.com/pjezusek/teamocil/tree/join-commands-by-enter) - tmux supporter,
   - overcommit - git hooks manager
   - guard - file listener
+  - solargraph - lsp for ruby,
+  - rubocop - linter for ruby,
   - guard-rspec - plugin for guard.
