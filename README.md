@@ -24,6 +24,7 @@
   - exa - alternative for ls,
   - the_silver_searcher - fuzzy searcher,
   - lazygit - gui for git.
+  - delta - a viewer for git and diff output
 - Office:
   - thunderbird - email client,
   - gimp - image editor,
