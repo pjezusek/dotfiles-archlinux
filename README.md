@@ -23,6 +23,7 @@
   - htop - process monitor,
   - exa - alternative for ls,
   - the_silver_searcher - fuzzy searcher,
+  - ripgrep - fuzzy searcher,
   - lazygit - gui for git.
   - delta - a viewer for git and diff output
 - Office:
