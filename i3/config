@@ -6,11 +6,9 @@ set $Monitor_1 HDMI-0
 set $Monitor_2 DP-5
 set $Audio_1 alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo
 set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
-set $Pad "HUION Huion Tablet_H640P Pad pad"
-set $Stylus "HUION Huion Tablet_H640P Stylus"
 
 # set font
-font pango: Noto Sans 12
+font pango: Fira Code Nerd Font 12
 
 for_window [class=".*"] border pixel 0
 
@@ -37,7 +35,6 @@ exec --no-startup-id xinput map-to-output 18 $Monitor_2
 exec --no-startup-id xinput map-to-output 19 $Monitor_2
 exec --no-startup-id xinput map-to-output 20 $Monitor_2
 exec --no-startup-id xinput map-to-output 21 $Monitor_2
-exec --no-startup-id xsetwacom set $Pad button 1 key lsuper n
 # }}}
 
 # Layout {{{
@@ -48,7 +45,7 @@ bar {
 
   position  top
 
-  font pango:Noto Sans, Font Awesome 5 Free 12
+  font pango:Fira Code Nerd Font 12
   strip_workspace_numbers yes
 
   bindsym button4 nop
@@ -77,7 +74,7 @@ bar {
 
   position top
 
-  font pango:Noto Sans, Font Awesome 5 Free 13
+  font pango:Fira Code Nerd Font 13
   strip_workspace_numbers yes
 
   bindsym button4 nop
@@ -107,37 +104,37 @@ client.background               #2f343f
 
 # Workspaces definition {{{
 # terminal
-set $terminal_ws "1:&#xf120;"
+set $terminal_ws "1:&#xf120; terminal"
 # browser
-set $browser_ws "2:&#xf269;"
+set $browser_ws "2:&#xf269; firefox"
 # mail client
-set $mail_client_ws "3:&#xf0e0;"
+set $mail_client_ws "3:&#xf0e0; thunderbird"
 # watching/reading
-set $watching_reading_ws "4:&#xf530;"
+set $watching_reading_ws "4:&#xfad9; reading"
 # gimp
-set $gimp_ws "5:&#xf86d;"
+set $gimp_ws "5:&#xf1fc; graphic"
 # remote
-set $remote_ws "6:&#xf1e6;"
+set $remote_ws "6:&#xf1e6; remote"
 # office
-set $office_ws "7:&#xf15c;"
+set $office_ws "7:&#xf15c; office"
 # ide
-set $ide_ws "8:&#xf1c9;"
+set $ide_ws "8:&#xf1c9; IDE"
 # debug
-set $debug_ws "9:&#xf188;"
+set $debug_ws "9:&#xf188; debug"
 # communication
-set $communication_ws "10:&#xf095;"
+set $communication_ws "10:&#xf095; chats"
 # games
-set $games_ws "11:&#xf11b;"
+set $games_ws "11:&#xf11b; games"
 # home
-set $home_ws "12:&#xf015;"
+set $home_ws "12:&#xf015; home"
 # private-left
-set $private_left_ws "13:&#xf023;L"
+set $private_left_ws "13:&#xf023;L private"
 # private-right
-set $private_right_ws "14:&#xf023;P"
+set $private_right_ws "14:&#xf023;P private"
 # config
-set $config "15:&#xf013;"
+set $config "15:&#xf013; config"
 # notes
-set $notes "16:&#xf249;"
+set $notes "16:&#xf249; notes"
 # }}}
 
 # Workspace configuration {{{
@@ -273,6 +270,8 @@ assign [class="Filezilla"] $remote_ws
 assign [class="Pavucontrol"] $config
 # Notes
 assign [class="Write"] $notes
+# Kitty
+assign [class="kitty"] $terminal_ws
 # }}}
 
 # Modes {{{

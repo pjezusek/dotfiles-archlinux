@@ -7,25 +7,38 @@ general {
   color_degraded = '#ebcb8b'
   color_bad = '#ba5e57'
 }
-
+order += "path_exists wVPN"
+order += "memory"
+order += "disk /"
 order += "volume monitor"
 order += "volume headphones"
 order += "tztime local"
 
 volume monitor {
-  format = "<span background='#ebcb8b'>   %volume </span>"
-  format_muted = "<span background='#ebcb8b'>   Muted </span>"
+  format = "<span background='#ebcb8b'>   %volume </span>"
+  format_muted = "<span background='#ebcb8b'>  婢</span>"
   device = "pulse:alsa_output.pci-0000_01_00.1.hdmi-stereo"
 }
 
 volume headphones {
   format = "<span background='#ebcb8b'>   %volume </span>"
-  format_muted = "<span background='#ebcb8b'>   Muted </span>"
+  format_muted = "<span background='#ebcb8b'>  婢 </span>"
   device = "pulse:alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo"
 }
 
 tztime local {
-  format = "<span background='#81a1c1'> %time </span>"
-  format_time = " %A %d.%m.%Y %H:%M"
+  format = "<span background='#82a1c1'>  %A %d.%m.%Y %H:%M </span>"
 }
 
+memory {
+  format = "<span background='#a55bb5'>  %percentage_used </span>"
+}
+
+disk "/" {
+  format = "<span background='#37a2bf'>  %percentage_used (free %free) </span>"
+}
+path_exists wVPN {
+  format = "<span background='#ff2134'> %title: %status </span>"
+  format_down = ""
+  path = "/proc/sys/net/ipv4/conf/ppp0"
+}
