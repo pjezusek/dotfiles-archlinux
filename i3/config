@@ -33,10 +33,10 @@ exec --no-startup-id nextcloud
 exec --no-startup-id thunderbird
 exec --no-startup-id keepassxc
 exec --no-startup-id kitty
-exec --no-startup-id xinput map-to-output 18 $Monitor_2
-exec --no-startup-id xinput map-to-output 19 $Monitor_2
-exec --no-startup-id xinput map-to-output 20 $Monitor_2
-exec --no-startup-id xinput map-to-output 21 $Monitor_2
+exec --no-startup-id xinput map-to-output 18 $Monitor_1
+exec --no-startup-id xinput map-to-output 19 $Monitor_1
+exec --no-startup-id xinput map-to-output 20 $Monitor_1
+exec --no-startup-id xinput map-to-output 21 $Monitor_1
 # }}}
 
 # Layout {{{
@@ -110,7 +110,7 @@ set $terminal_ws "1:&#xf120; terminal"
 # browser
 set $browser_ws "2:&#xf269; firefox"
 # mail client
-set $mail_client_ws "3:&#xf0e0; thunderbird"
+# set $mail_client_ws "3:&#xf0e0; thunderbird"
 # watching/reading
 set $watching_reading_ws "4:&#xfad9; reading"
 # gimp
@@ -135,8 +135,6 @@ set $private_left_ws "13:&#xf023;L private"
 set $private_right_ws "14:&#xf023;P private"
 # config
 set $config "15:&#xf013; config"
-# notes
-set $notes "16:&#xf249; notes"
 # }}}
 
 # Workspace configuration {{{
@@ -155,7 +153,6 @@ workspace $home_ws output $Monitor_1
 workspace $private_left_ws output $Monitor_2
 workspace $private_right_ws output $Monitor_1
 workspace $config output $Monitor_2
-workspace $notes output $Monitor_2
 
 focus_on_window_activation focus
 # }}}
@@ -165,7 +162,7 @@ focus_on_window_activation focus
 bindsym $super+Return exec kitty
 
 # start rofi
-bindsym F3 exec "rofi -show drun -font 'Source Code Pro 12'"
+bindsym F3 exec "rofi -show drun -font 'Source Code Pro 12' -show-icons"
 
 # kill focused window
 bindsym $alt+F4 kill
@@ -208,7 +205,7 @@ bindsym $super+Shift+space focus mode_toggle
 # switch to workspace
 bindsym $super+q workspace $terminal_ws
 bindsym $super+e workspace $browser_ws
-bindsym $super+2 workspace $mail_client_ws
+#bindsym $super+2 workspace $mail_client_ws
 bindsym $super+1 workspace $watching_reading_ws
 bindsym $super+t workspace $gimp_ws
 bindsym $super+r workspace $remote_ws
@@ -219,12 +216,11 @@ bindsym $super+0 workspace $communication_ws
 bindsym $super+g workspace $games_ws
 bindsym $super+3 workspace $home_ws
 bindsym $super+c workspace $config
-bindsym $super+n workspace $notes
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $terminal_ws
 bindsym $super+Shift+e move container to workspace $browser_ws
-bindsym $super+Shift+2 move container to workspace $mail_client_ws
+#bindsym $super+Shift+2 move container to workspace $mail_client_ws
 bindsym $super+Shift+1 move container to workspace $watching_reading_ws
 bindsym $super+Shift+t move container to workspace $gimp_ws
 bindsym $super+Shift+r move container to workspace $remote_ws
@@ -235,13 +231,18 @@ bindsym $super+Shift+0 move container to workspace $communication_ws
 bindsym $super+Shift+g move container to workspace $games_ws
 bindsym $super+Shift+3 move container to workspace $home_ws
 bindsym $super+Shift+c move container to workspace $config
-bindsym $super+Shift+n move container to workspace $notes
 
-# Make the currently focused window a scratchpad
+# Scratchpad
 for_window [class="KeePassXC"] move scratchpad
-bindsym $super+Shift+minuj move scratchpad
+bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
 bindsym $super+a [class="KeePassXC"] scratchpad show
+bindsym $super+Shift+m mark "music", move scratchpad
+bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000
+bindsym $super+Shift+n mark "notes", move scratchpad
+bindsym $super+n [con_mark="notes"] scratchpad show; resize set 1500 1000
+for_window [class="Thunderbird"] move scratchpad
+bindsym $super+2 [class="Thunderbird"] scratchpad show; resize set 1500 1000
 # }}}
 
 # Assign workspace {{{
@@ -270,13 +271,26 @@ assign [class="org.remmina.Remmina"] $remote_ws
 assign [class="Filezilla"] $remote_ws
 # Config
 assign [class="Pavucontrol"] $config
-# Notes
-assign [class="Write"] $notes
 # Kitty
 assign [class="kitty"] $terminal_ws
 # }}}
 
 # Modes {{{
+bindsym $alt+s mode "scratchpad"
+mode "scratchpad" {
+  bindsym Shift+s mark "synology", move scratchpad; mode "default"
+  bindsym s [con_mark="synology"] scratchpad show; mode "default"; resize set 1500 1000
+  bindsym Shift+o mark "outlook", move scratchpad; mode "default"
+  bindsym o [con_mark="outlook"] scratchpad show; mode "default"; resize set 1500 1000
+  bindsym Shift+t mark "teams", move scratchpad; mode "default"
+  bindsym t [con_mark="teams"] scratchpad show; mode "default"; resize set 1500 1000
+  bindsym Shift+h mark "helpdesk", move scratchpad; mode "default"
+  bindsym h [con_mark="helpdesk"] scratchpad show; mode "default"; resize set 1500 1000
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
 bindsym $alt+p mode "private"
 mode "private" {
   bindsym l workspace $private_left_ws; mode "default"
