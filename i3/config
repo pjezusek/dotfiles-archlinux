@@ -16,6 +16,8 @@ gaps inner 10
 gaps outer 0
 smart_gaps on
 smart_borders on
+popup_during_fullscreen smart
+workspace_auto_back_and_forth yes
 # }}}
 
 # Autostart {{{
@@ -142,7 +144,7 @@ workspace $terminal_ws output $Monitor_1
 workspace $browser_ws output $Monitor_2
 workspace $mail_client_ws output $Monitor_1
 workspace $watching_reading_ws output $Monitor_1
-workspace $gimp_ws output $Monitor_2
+workspace $gimp_ws output $Monitor_1
 workspace $remote_ws output $Monitor_1
 workspace $office_ws output $Monitor_1
 workspace $ide_ws output $Monitor_1
@@ -237,7 +239,7 @@ bindsym $super+Shift+n move container to workspace $notes
 
 # Make the currently focused window a scratchpad
 for_window [class="KeePassXC"] move scratchpad
-bindsym $super+Shift+minus move scratchpad
+bindsym $super+Shift+minuj move scratchpad
 bindsym $super+minus scratchpad show
 bindsym $super+a [class="KeePassXC"] scratchpad show
 # }}}
