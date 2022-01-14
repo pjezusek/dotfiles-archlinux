@@ -245,7 +245,7 @@ for_window [class="Thunderbird"] move scratchpad
 bindsym $super+2 [class="Thunderbird"] scratchpad show; resize set 1500 1000
 
 # Dunst
-bindsym $alt+c exec dunstctl close
+bindsym $alt+c exec dunstctl close-all
 bindsym $alt+h exec dunstctl history-pop
 # }}}
 
@@ -290,6 +290,8 @@ mode "scratchpad" {
   bindsym t [con_mark="teams"] scratchpad show; mode "default"; resize set 1500 1000
   bindsym Shift+h mark "helpdesk", move scratchpad; mode "default"
   bindsym h [con_mark="helpdesk"] scratchpad show; mode "default"; resize set 1500 1000
+  bindsym Shift+k mark "skype", move scratchpad; mode "default"
+  bindsym h [con_mark="skype"] scratchpad show; mode "default"; resize set 1500 1000
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
