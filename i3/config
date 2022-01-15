@@ -243,6 +243,8 @@ bindsym $super+Shift+n mark "notes", move scratchpad
 bindsym $super+n [con_mark="notes"] scratchpad show; resize set 1500 1000
 for_window [class="Thunderbird"] move scratchpad
 bindsym $super+2 [class="Thunderbird"] scratchpad show; resize set 1500 1000
+bindsym $super+Shift+p mark "preview", move scratchpad
+bindsym $super+p [con_mark="preview"] scratchpad show; resize set 1500 1000
 
 # Dunst
 bindsym $alt+c exec dunstctl close-all
