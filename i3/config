@@ -236,17 +236,17 @@ bindsym $super+Shift+c move container to workspace $config
 for_window [class="KeePassXC"] move scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
-bindsym $super+a [class="KeePassXC"] scratchpad show
+bindsym $super+a [class="KeePassXC"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+m mark "music", move scratchpad
-bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000
+bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+n mark "notes", move scratchpad
-bindsym $super+n [con_mark="notes"] scratchpad show; resize set 1500 1000
+bindsym $super+n [con_mark="notes"] scratchpad show; resize set 1500 1000; move position center
 for_window [class="Thunderbird"] move scratchpad
-bindsym $super+2 [class="Thunderbird"] scratchpad show; resize set 1500 1000
+bindsym $super+2 [class="Thunderbird"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+p mark "preview", move scratchpad
-bindsym $super+p [con_mark="preview"] scratchpad show; resize set 1500 1000
+bindsym $super+p [con_mark="preview"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+d mark "work", move scratchpad
-bindsym $super+d [con_mark="work"] scratchpad show; resize set 1500 1000
+bindsym $super+d [con_mark="work"] scratchpad show; resize set 1500 1000; move position center
 
 # Dunst
 bindsym $alt+c exec dunstctl close-all
