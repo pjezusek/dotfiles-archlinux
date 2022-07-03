@@ -124,7 +124,7 @@ set $ide_ws "8:&#xf1c9; IDE"
 # debug
 set $debug_ws "9:&#xf188; debug"
 # communication
-set $communication_ws "10:&#xf095; chats"
+set $communities_ws "10:&#xf095; communities"
 # games
 set $games_ws "11:&#xf11b; games"
 # home
@@ -133,8 +133,6 @@ set $home_ws "12:&#xf015; home"
 set $private_left_ws "13:&#xf023;L private"
 # private-right
 set $private_right_ws "14:&#xf023;P private"
-# config
-set $config "15:&#xf013; config"
 # }}}
 
 # Workspace configuration {{{
@@ -147,12 +145,11 @@ workspace $remote_ws output $Monitor_1
 workspace $office_ws output $Monitor_1
 workspace $ide_ws output $Monitor_1
 workspace $debug_ws output $Monitor_2
-workspace $communication_ws output $Monitor_2
+workspace $communities_ws output $Monitor_2
 workspace $games_ws output $Monitor_1
 workspace $home_ws output $Monitor_1
 workspace $private_left_ws output $Monitor_2
 workspace $private_right_ws output $Monitor_1
-workspace $config output $Monitor_2
 
 focus_on_window_activation focus
 # }}}
@@ -211,10 +208,9 @@ bindsym $super+r workspace $remote_ws
 bindsym $super+x workspace $office_ws
 bindsym $super+z workspace $ide_ws
 bindsym $super+w workspace $debug_ws
-bindsym $super+0 workspace $communication_ws
+bindsym $super+c workspace $communities_ws
 bindsym $super+g workspace $games_ws
 bindsym $super+3 workspace $home_ws
-bindsym $super+c workspace $config
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $terminal_ws
@@ -225,10 +221,9 @@ bindsym $super+Shift+r move container to workspace $remote_ws
 bindsym $super+Shift+x move container to workspace $office_ws
 bindsym $super+Shift+z move container to workspace $ide_ws
 bindsym $super+Shift+w move container to workspace $debug_ws
-bindsym $super+Shift+0 move container to workspace $communication_ws
+bindsym $super+Shift+c move container to workspace $communities_ws
 bindsym $super+Shift+g move container to workspace $games_ws
 bindsym $super+Shift+3 move container to workspace $home_ws
-bindsym $super+Shift+c move container to workspace $config
 
 # Scratchpad
 for_window [class="KeePassXC"] move scratchpad
@@ -244,7 +239,7 @@ bindsym $super+2 [con_mark="thunderbird"] scratchpad show; resize set 1500 1000;
 bindsym $super+Shift+s mark "stock", move scratchpad
 bindsym $super+s [con_mark="stock"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+p mark "preview", move scratchpad
-bindsym $super+p [con_mark="preview"] scratchpad show; fullscreen enable; move position center
+bindsym $super+p [con_mark="preview"] scratchpad show, fullscreen enable; move position center
 bindsym $super+Shift+d mark "work", move scratchpad
 bindsym $super+d [con_mark="work"] scratchpad show; resize set 1500 1000; move position center
 
@@ -257,8 +252,8 @@ bindsym $alt+h exec dunstctl history-pop
 # Gimp
 assign [class="Gimp"] $gimp_ws
 # Communication
-assign [class="discord"] $communication_ws
-assign [class="Skype"] $communication_ws
+assign [class="discord"] $communities_ws
+assign [class="Skype"] $communities_ws
 # Games
 assign [class="Lutris"] $games_ws
 assign [class="Steam"] $games_ws
@@ -275,8 +270,6 @@ assign [class="VirtualBox Manager"] $ide_ws
 assign [class="Anydesk"] $remote_ws
 assign [class="org.remmina.Remmina"] $remote_ws
 assign [class="Filezilla"] $remote_ws
-# Config
-assign [class="Pavucontrol"] $config
 # Kitty
 assign [class="kitty"] $terminal_ws
 # }}}
