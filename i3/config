@@ -205,7 +205,6 @@ bindsym $super+Shift+space focus mode_toggle
 # switch to workspace
 bindsym $super+q workspace $terminal_ws
 bindsym $super+e workspace $browser_ws
-#bindsym $super+2 workspace $mail_client_ws
 bindsym $super+1 workspace $watching_reading_ws
 bindsym $super+t workspace $gimp_ws
 bindsym $super+r workspace $remote_ws
@@ -220,7 +219,6 @@ bindsym $super+c workspace $config
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $terminal_ws
 bindsym $super+Shift+e move container to workspace $browser_ws
-#bindsym $super+Shift+2 move container to workspace $mail_client_ws
 bindsym $super+Shift+1 move container to workspace $watching_reading_ws
 bindsym $super+Shift+t move container to workspace $gimp_ws
 bindsym $super+Shift+r move container to workspace $remote_ws
@@ -240,13 +238,13 @@ bindsym $super+a [class="KeePassXC"] scratchpad show; resize set 1500 1000; move
 bindsym $super+Shift+m mark "music", move scratchpad
 bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+n mark "notes", move scratchpad
-bindsym $super+n [con_mark="notes"] scratchpad show; resize set 1500 1000; move position center
+bindsym $super+n [con_mark="notes"] scratchpad show, fullscreen enable; move position center
 bindsym $super+Shift+2 mark "thunderbird", move scratchpad
 bindsym $super+2 [con_mark="thunderbird"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+s mark "stock", move scratchpad
 bindsym $super+s [con_mark="stock"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+p mark "preview", move scratchpad
-bindsym $super+p [con_mark="preview"] scratchpad show; resize set 1500 1000; move position center
+bindsym $super+p [con_mark="preview"] scratchpad show; fullscreen enable; move position center
 bindsym $super+Shift+d mark "work", move scratchpad
 bindsym $super+d [con_mark="work"] scratchpad show; resize set 1500 1000; move position center
 
