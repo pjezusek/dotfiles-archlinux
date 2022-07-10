@@ -18,9 +18,9 @@ function show_ruby_version -d "Display ruby version and gemset using rvm"
     end
 end
 
-function show_python_version -d "Display python version using pyenv"
-    if type -q pyenv
-      echo -en "[python-"(pyenv version-name)"] "
+function show_python_version -d "Display python version"
+    if type -q python
+      echo -en "["(python --version)"] "
     end
 end
 
