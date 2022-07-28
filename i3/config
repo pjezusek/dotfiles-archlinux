@@ -233,7 +233,7 @@ bindsym $super+a [class="KeePassXC"] scratchpad show; resize set 1500 1000; move
 bindsym $super+Shift+m mark "music", move scratchpad
 bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+n mark "notes", move scratchpad
-bindsym $super+n [con_mark="notes"] scratchpad show, fullscreen enable; move position center
+bindsym $super+n [con_mark="notes"] scratchpad show, resize set 1500 1000; move position center
 bindsym $super+Shift+2 mark "thunderbird", move scratchpad
 bindsym $super+2 [con_mark="thunderbird"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+s mark "stock", move scratchpad
