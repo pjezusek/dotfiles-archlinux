@@ -57,3 +57,10 @@
   - solargraph - lsp for ruby,
   - rubocop - linter for ruby,
   - guard-rspec - plugin for guard.
+- Pips:
+  - pandas-stubs
+  - flake8
+  - pyright
+  - mypy
+- Javascript libs:
+  - hygen
