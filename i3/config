@@ -235,7 +235,7 @@ bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000; move 
 bindsym $super+Shift+n mark "notes", move scratchpad
 bindsym $super+n [con_mark="notes"] scratchpad show, resize set 1500 1000; move position center
 bindsym $super+Shift+2 mark "thunderbird", move scratchpad
-bindsym $super+2 [con_mark="thunderbird"] scratchpad show; resize set 1500 1000; move position center
+bindsym $super+2 [con_mark="thunderbird"] scratchpad show; fullscreen enable; move position center
 bindsym $super+Shift+s mark "stock", move scratchpad
 bindsym $super+s [con_mark="stock"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+p mark "preview", move scratchpad
