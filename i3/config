@@ -7,6 +7,9 @@ set $Monitor_2 DP-5
 set $Audio_1 alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo
 set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
 
+# Disable tailing drag
+bindsym button1 focus
+
 # set font
 font pango: Fira Code Nerd Font 12
 
@@ -235,13 +238,13 @@ bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000; move 
 bindsym $super+Shift+n mark "notes", move scratchpad
 bindsym $super+n [con_mark="notes"] scratchpad show, resize set 1500 1000; move position center
 bindsym $super+Shift+2 mark "thunderbird", move scratchpad
-bindsym $super+2 [con_mark="thunderbird"] scratchpad show; fullscreen enable; move position center
+bindsym $super+2 [con_mark="thunderbird"] scratchpad show; resize set 95ppt 95ppt; move position center
 bindsym $super+Shift+s mark "stock", move scratchpad
 bindsym $super+s [con_mark="stock"] scratchpad show; resize set 1500 1000; move position center
 bindsym $super+Shift+p mark "preview", move scratchpad
-bindsym $super+p [con_mark="preview"] scratchpad show, fullscreen enable; move position center
+bindsym $super+p [con_mark="preview"] scratchpad show; resize set 95ppt 95ppt; move position center
 bindsym $super+Shift+d mark "work", move scratchpad
-bindsym $super+d [con_mark="work"] scratchpad show; resize set 1500 1000; move position center
+bindsym $super+d [con_mark="work"] scratchpad show; resize set 95ppt 95ppt; move position center
 
 # Dunst
 bindsym $alt+c exec dunstctl close-all
