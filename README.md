@@ -26,6 +26,7 @@
   - ripgrep - fuzzy searcher,
   - lazygit - gui for git.
   - delta - a viewer for git and diff output
+  - fd - better find for files
 - Office:
   - thunderbird - email client,
   - gimp - image editor,
