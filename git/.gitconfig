@@ -1,6 +1,6 @@
 [user]
 	name = Piotr Jezusek
-	email = pjezusek@cross-net.eu
+	email = <email>
 [pager]
     diff = delta
     log = delta
