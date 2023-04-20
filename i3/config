@@ -1,26 +1,25 @@
 # General settings {{{
 # set modifier
-set $super Mod4
-set $alt Mod1
-set $Monitor_1 HDMI-0
-set $Monitor_2 DP-5
+set $super Mod1
+set $alt Mod4
+set $Monitor_1 DP-5
+set $Monitor_2 HDMI-0
 set $Audio_1 alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo
 set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
 
-# Disable tailing drag
-bindsym button1 focus
+# disable moving windows with mouse
+tiling_drag off
 
 # set font
 font pango: Fira Code Nerd Font 12
 
-for_window [class=".*"] border pixel 0
+for_window [class=".*"] border pixel 1
 
 gaps inner 10
 gaps outer 0
 smart_gaps on
 smart_borders on
 popup_during_fullscreen smart
-workspace_auto_back_and_forth yes
 # }}}
 
 # Autostart {{{
@@ -44,9 +43,8 @@ exec --no-startup-id xinput map-to-output 21 $Monitor_1
 
 # Layout {{{
 bar {
-  output $Monitor_1
-  mode hide
-  hidden_state hide
+  output $Monitor_2
+  tray_output none
 
   position  top
 
@@ -63,23 +61,18 @@ bar {
     separator #4b5262
 
     # colour of border, background, and text
-    focused_workspace   #2f343f #bf616a #d8dee8
-    active_workspace    #2f343f #2f343f #d8dee8
+    focused_workspace   #2f343f #bf616a #2f343f
+    active_workspace    #2f343f #a89698 #2f343f
     inactive_workspace  #2f343f #2f343f #d8dee8
-    urgent_workspace    #2f343f #ebcb8b #2f343f
   }
-  status_command i3status
 }
 
 bar {
-  mode hide
-  hidden_state hide
-  output $Monitor_2
-  tray_output none
+  output $Monitor_1
 
   position top
 
-  font pango:Fira Code Nerd Font 13
+  font pango:Fira Code Nerd Font 12
   strip_workspace_numbers yes
 
   bindsym button4 nop
@@ -92,11 +85,12 @@ bar {
     separator #4b5262
 
     # colour of border, background, and text
-    focused_workspace   #2f343f #bf616a #d8dee8
-    active_workspace    #2f343f #2f343f #d8dee8
+    focused_workspace   #2f343f #bf616a #2f343f
+    active_workspace    #2f343f #a89698 #2f343f
     inactive_workspace  #2f343f #2f343f #d8dee8
-    urgent_workspace    #2f343f #ebcb8b #2f343f
   }
+
+  status_command i3status
 }
 # colour of border, background, text, indicator, and child_border
 client.focused                  #bf616a #2f343f #d8dee8 #bf616a #e60073
@@ -112,8 +106,6 @@ client.background               #2f343f
 set $terminal_ws "1:&#xf120; terminal"
 # browser
 set $browser_ws "2:&#xf269; firefox"
-# mail client
-# set $mail_client_ws "3:&#xf0e0; thunderbird"
 # watching/reading
 set $watching_reading_ws "4:&#xfad9; reading"
 # gimp
@@ -127,7 +119,7 @@ set $ide_ws "8:&#xf1c9; IDE"
 # debug
 set $debug_ws "9:&#xf188; debug"
 # communication
-set $communities_ws "10:&#xf095; communities"
+set $clouds_ws "10:&#9729; clouds"
 # games
 set $games_ws "11:&#xf11b; games"
 # home
@@ -148,7 +140,7 @@ workspace $remote_ws output $Monitor_1
 workspace $office_ws output $Monitor_1
 workspace $ide_ws output $Monitor_1
 workspace $debug_ws output $Monitor_2
-workspace $communities_ws output $Monitor_2
+workspace $clouds_ws output $Monitor_2
 workspace $games_ws output $Monitor_1
 workspace $home_ws output $Monitor_1
 workspace $private_left_ws output $Monitor_2
@@ -162,10 +154,10 @@ focus_on_window_activation focus
 bindsym $super+Return exec kitty
 
 # start rofi
-bindsym F3 exec "rofi -show drun -font 'Source Code Pro 12' -show-icons"
+bindsym F6 exec "rofi -show drun -font 'Source Code Pro 12' -show-icons"
 
 # kill focused window
-bindsym $alt+F4 kill
+bindsym $super+F4 kill
 
 # print screen
 bindsym Print exec flameshot gui
@@ -211,7 +203,7 @@ bindsym $super+r workspace $remote_ws
 bindsym $super+x workspace $office_ws
 bindsym $super+z workspace $ide_ws
 bindsym $super+w workspace $debug_ws
-bindsym $super+c workspace $communities_ws
+bindsym $super+c workspace $clouds_ws
 bindsym $super+g workspace $games_ws
 bindsym $super+3 workspace $home_ws
 
@@ -224,7 +216,7 @@ bindsym $super+Shift+r move container to workspace $remote_ws
 bindsym $super+Shift+x move container to workspace $office_ws
 bindsym $super+Shift+z move container to workspace $ide_ws
 bindsym $super+Shift+w move container to workspace $debug_ws
-bindsym $super+Shift+c move container to workspace $communities_ws
+bindsym $super+Shift+c move container to workspace $clouds_ws
 bindsym $super+Shift+g move container to workspace $games_ws
 bindsym $super+Shift+3 move container to workspace $home_ws
 
@@ -232,19 +224,26 @@ bindsym $super+Shift+3 move container to workspace $home_ws
 for_window [class="KeePassXC"] move scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
-bindsym $super+a [class="KeePassXC"] scratchpad show; resize set 1500 1000; move position center
+
+bindsym $super+a [class="KeePassXC"] scratchpad show, resize set 1500px 1000px, move position center
+
 bindsym $super+Shift+m mark "music", move scratchpad
-bindsym $super+m [con_mark="music"] scratchpad show; resize set 1500 1000; move position center
-bindsym $super+Shift+n mark "notes", move scratchpad
-bindsym $super+n [con_mark="notes"] scratchpad show, resize set 1500 1000; move position center
+bindsym $super+m [con_mark="music"] scratchpad show, resize set 1500px 1000px move position center
+
+bindsym $super+Shift+s mark "notes", move scratchpad
+bindsym $super+s [con_mark="notes"] scratchpad show, resize set 95ppt 95ppt, move position center
+
 bindsym $super+Shift+2 mark "thunderbird", move scratchpad
-bindsym $super+2 [con_mark="thunderbird"] scratchpad show; resize set 95ppt 95ppt; move position center
-bindsym $super+Shift+s mark "stock", move scratchpad
-bindsym $super+s [con_mark="stock"] scratchpad show; resize set 1500 1000; move position center
+bindsym $super+2 [con_mark="thunderbird"] scratchpad show, resize set 95ppt 95ppt, move position center
+
 bindsym $super+Shift+p mark "preview", move scratchpad
-bindsym $super+p [con_mark="preview"] scratchpad show; resize set 95ppt 95ppt; move position center
+bindsym $super+p [con_mark="preview"] scratchpad show, resize set 95ppt 95ppt, move position center
+
+bindsym $super+Shift+b mark "bluetooth", move scratchpad
+bindsym $super+b [con_mark="bluetooth"] scratchpad show, resize set 60ppt 60ppt, move position center
+
 bindsym $super+Shift+d mark "work", move scratchpad
-bindsym $super+d [con_mark="work"] scratchpad show; resize set 95ppt 95ppt; move position center
+bindsym $super+d [con_mark="work"] scratchpad show, resize set 95ppt 95ppt, move position center
 
 # Dunst
 bindsym $alt+c exec dunstctl close-all
@@ -255,8 +254,8 @@ bindsym $alt+h exec dunstctl history-pop
 # Gimp
 assign [class="Gimp"] $gimp_ws
 # Communication
-assign [class="discord"] $communities_ws
-assign [class="Skype"] $communities_ws
+assign [class="discord"] $clouds_ws
+assign [class="Skype"] $clouds_ws
 # Games
 assign [class="Lutris"] $games_ws
 assign [class="Steam"] $games_ws
@@ -290,7 +289,7 @@ mode "private" {
   bindsym Escape mode "default"
 }
 
-bindsym $alt+Pause mode "system"
+bindsym $alt+Delete mode "system"
 mode "system" {
   bindsym l exec --no-startup-id i3lock -t -i ~/.config/lock_screen.png, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
@@ -351,6 +350,20 @@ mode "move" {
 }
 # }}}
 
+# Move workspaces to another monitor {{{
+bindsym $alt+$super+m mode "move workspaces"
+mode "move workspaces" {
+  bindsym h     move workspace to output left
+  bindsym l     move workspace to output right
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+# }}}
+
 # Fixes {{{
 for_window [class="^jetbrains-.+"][window_type=dialog] focus
+for_window [class="KeePassXC"][window_type=dialog] focus
+for_window [class="thunderbird"][window_role="Msgcompose"] floating enable, resize set 60ppt 60ppt
 # }}}

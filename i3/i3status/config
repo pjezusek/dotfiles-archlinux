@@ -7,7 +7,7 @@ general {
   color_degraded = '#ebcb8b'
   color_bad = '#ba5e57'
 }
-order += "path_exists wVPN"
+order += "path_exists VPN"
 order += "memory"
 order += "disk /"
 order += "volume monitor"
@@ -37,8 +37,8 @@ memory {
 disk "/" {
   format = "<span background='#37a2bf'>  %percentage_used (free %free) </span>"
 }
-path_exists wVPN {
+path_exists VPN {
   format = "<span background='#ff2134'> %title: %status </span>"
-  format_down = ""
+  format_down = "<span background='#7288b5'> %title: %status </span>"
   path = "/proc/sys/net/ipv4/conf/ppp0"
 }
