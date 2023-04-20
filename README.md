@@ -3,12 +3,6 @@
 ## Softwares
 
 - Core:
-  - xorg-server - X Window System (`pacman -S xorg-server`)
-  - xorg-xinit - init scripts for xorg (`pacman -S xorg-xinit`)
-  - i3-gaps - windows manager with gaps (`pacman -S i3-gaps`)
-  - i3status - status bar for i3 (`pacman -S i3status`)
-  - dunst - notification (`pacman -S dunst`)
-  - rofi - menu (`pacman -S rofi`)
   - mlocate - locate files in the whole system (`pacman -S mlocate`)
   - base-devel - base tools for building (`pacman -S base-devel`)
   - fuse2 - allows to launch appimages (`pacman -S fuse2`)
@@ -33,9 +27,28 @@
   - delta - a viewer for git and diff output (`pacman -S git-delta`)
   - fd - better find for files (`pacman -S fd`)
   - fish - shell (`pacman -S fish`)
+    - fisher - plugins manager (`curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher`)
+    - plugins
+        - `fisher install jorgebucaran/fisher`
+        - `fisher install jethrokuan/z`
+        - `fisher install jorgebucaran/nvm.fish`
+        - `fisher install PatrickF1/fzf.fish`
   - ranger - file manager (`pacman -S ranger`)
     - addons (`pacman -S atool elinks ffmpegthumbnailer highlight imagemagick libcaca lynx mediainfo odt2txt perl-image-exiftool poppler`)
     - icons (`git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons`)
+  - xrandr - monitors manager (`pacman -S xorg-xrandr`)
+  - neofetch - pretty computer info (`pacman -S neofetch`)
+- GUI
+  - xorg-server - X Window System (`pacman -S xorg-server`)
+  - xorg-xinit - init scripts for xorg (`pacman -S xorg-xinit`)
+  - i3-gaps - windows manager with gaps (`pacman -S i3-gaps`)
+  - i3status - status bar for i3 (`pacman -S i3status`)
+  - rofi - menu (`pacman -S rofi`)
+  - pulseaudio - manage sound (`pacman -S pulseaudio`)
+  - nm-applet - manage sound (`pacman -S network-manager-applet`)
+  - dunst - notification (`pacman -S dunst`)
+  - picom - compositor (`pacman -S dunst`)
+  - blueman - bluetooth manager (`pacman -S blueman`)
 - Office:
   - thunderbird - email client (`pacman -S thunderbird`)
   - gimp - image editor (`pacman -S gimp`)
@@ -55,6 +68,7 @@
   - slack (`yay -S slack-desktop`)
 - Development:
   - rvm (`curl -sSL https://get.rvm.io | bash -s stable`)
+  - nvm (`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash`)
   - python
   - nodejs
   - yarn

@@ -1,2 +1,4 @@
 set fish_greeting
-neofetch
+if status is-interactive
+  neofetch
+end
