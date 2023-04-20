@@ -38,6 +38,7 @@
     - icons (`git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons`)
   - xrandr - monitors manager (`pacman -S xorg-xrandr`)
   - neofetch - pretty computer info (`pacman -S neofetch`)
+  - fzf - fuzzy search (`pacman -S fzf`)
 - GUI
   - xorg-server - X Window System (`pacman -S xorg-server`)
   - xorg-xinit - init scripts for xorg (`pacman -S xorg-xinit`)
