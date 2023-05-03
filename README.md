@@ -6,6 +6,7 @@
   - mlocate - locate files in the whole system (`pacman -S mlocate`)
   - base-devel - base tools for building (`pacman -S base-devel`)
   - fuse2 - allows to launch appimages (`pacman -S fuse2`)
+  - fonts - ttf-firacode-nerd (`pacman -S ttf-firacode-nerd`)
 - Terminal:
   - yay - allows to install packages from AUR
     - `git clone https://aur.archlinux.org/yay.git`
