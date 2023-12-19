@@ -1,8 +1,8 @@
 # General settings {{{
 # set modifier
-set $super Mod1
-set $alt Mod4
-set $Monitor_1 DP-5
+set $super Mod4
+set $alt Mod1
+set $Monitor_1 DP-1
 set $Monitor_2 HDMI-0
 set $Audio_1 alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo
 set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
@@ -11,7 +11,7 @@ set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
 tiling_drag off
 
 # set font
-font pango: Fira Code Nerd Font 12
+font pango: Fira Code Nerd Font 15
 
 for_window [class=".*"] border pixel 1
 
@@ -35,6 +35,7 @@ exec --no-startup-id nextcloud
 exec --no-startup-id thunderbird
 exec --no-startup-id keepassxc
 exec --no-startup-id kitty
+exec --no-startup-id logid &
 exec --no-startup-id xinput map-to-output 18 $Monitor_1
 exec --no-startup-id xinput map-to-output 19 $Monitor_1
 exec --no-startup-id xinput map-to-output 20 $Monitor_1
@@ -44,7 +45,6 @@ exec --no-startup-id xinput map-to-output 21 $Monitor_1
 # Layout {{{
 bar {
   output $Monitor_2
-  tray_output none
 
   position  top
 
@@ -69,10 +69,11 @@ bar {
 
 bar {
   output $Monitor_1
+  tray_output $Monitor_1
 
   position top
 
-  font pango:Fira Code Nerd Font 12
+  font pango:Fira Code Nerd Font 15
   strip_workspace_numbers yes
 
   bindsym button4 nop
@@ -102,49 +103,27 @@ client.background               #2f343f
 #}}}
 
 # Workspaces definition {{{
-# terminal
 set $terminal_ws "1:&#xf120; terminal"
-# browser
-set $browser_ws "2:&#xf269; firefox"
-# watching/reading
-set $watching_reading_ws "4:&#xfad9; reading"
-# gimp
-set $gimp_ws "5:&#xf1fc; graphic"
-# remote
-set $remote_ws "6:&#xf1e6; remote"
-# office
-set $office_ws "7:&#xf15c; office"
-# ide
-set $ide_ws "8:&#xf1c9; IDE"
-# debug
-set $debug_ws "9:&#xf188; debug"
-# communication
-set $clouds_ws "10:&#9729; clouds"
-# games
-set $games_ws "11:&#xf11b; games"
-# home
-set $home_ws "12:&#xf015; home"
-# private-left
-set $private_left_ws "13:&#xf023;L private"
-# private-right
-set $private_right_ws "14:&#xf023;P private"
+set $youtube_ws "2:&#xf167; browser"
+set $reading_ws "3:&#xfad9; reading"
+set $comm_ws "4:&#xf086; communication"
+set $work_ws "5:&#xf0b1; work"
+set $office_ws "6:&#xf02f; office"
+set $testing_ws "7:&#xf11c; testing"
+set $notes_ws "8:&#xf249; notes"
+set $config_ws "9:&#xf013; config"
+set $private_ws "99:&#xf023;Private"
 # }}}
 
 # Workspace configuration {{{
 workspace $terminal_ws output $Monitor_1
-workspace $browser_ws output $Monitor_2
-workspace $mail_client_ws output $Monitor_1
-workspace $watching_reading_ws output $Monitor_1
-workspace $gimp_ws output $Monitor_1
-workspace $remote_ws output $Monitor_1
+workspace $reading_ws output $Monitor_1
+workspace $comm_ws output $Monitor_1
 workspace $office_ws output $Monitor_1
-workspace $ide_ws output $Monitor_1
-workspace $debug_ws output $Monitor_2
-workspace $clouds_ws output $Monitor_2
-workspace $games_ws output $Monitor_1
-workspace $home_ws output $Monitor_1
-workspace $private_left_ws output $Monitor_2
-workspace $private_right_ws output $Monitor_1
+workspace $private_ws output $Monitor_1
+
+workspace $youtube_ws output $Monitor_2
+workspace $work_ws output $Monitor_2
 
 focus_on_window_activation focus
 # }}}
@@ -154,7 +133,7 @@ focus_on_window_activation focus
 bindsym $super+Return exec kitty
 
 # start rofi
-bindsym F6 exec "rofi -show drun -font 'Source Code Pro 12' -show-icons"
+bindsym F6 exec "rofi -show drun -font 'Source Code Pro 15' -show-icons"
 
 # kill focused window
 bindsym $super+F4 kill
@@ -196,54 +175,32 @@ bindsym $super+Shift+space focus mode_toggle
 
 # switch to workspace
 bindsym $super+q workspace $terminal_ws
-bindsym $super+e workspace $browser_ws
-bindsym $super+1 workspace $watching_reading_ws
-bindsym $super+t workspace $gimp_ws
-bindsym $super+r workspace $remote_ws
-bindsym $super+x workspace $office_ws
-bindsym $super+z workspace $ide_ws
-bindsym $super+w workspace $debug_ws
-bindsym $super+c workspace $clouds_ws
-bindsym $super+g workspace $games_ws
-bindsym $super+3 workspace $home_ws
+bindsym $super+e workspace $youtube_ws
+bindsym $super+1 workspace $reading_ws
+bindsym $super+o workspace $office_ws
+bindsym $super+w workspace $testing_ws
+bindsym $super+x workspace $config_ws
+bindsym $super+2 workspace $comm_ws
+bindsym $super+s workspace $notes_ws
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $terminal_ws
-bindsym $super+Shift+e move container to workspace $browser_ws
-bindsym $super+Shift+1 move container to workspace $watching_reading_ws
-bindsym $super+Shift+t move container to workspace $gimp_ws
-bindsym $super+Shift+r move container to workspace $remote_ws
-bindsym $super+Shift+x move container to workspace $office_ws
-bindsym $super+Shift+z move container to workspace $ide_ws
-bindsym $super+Shift+w move container to workspace $debug_ws
-bindsym $super+Shift+c move container to workspace $clouds_ws
-bindsym $super+Shift+g move container to workspace $games_ws
-bindsym $super+Shift+3 move container to workspace $home_ws
+bindsym $super+Shift+e move container to workspace $youtube_ws
+bindsym $super+Shift+1 move container to workspace $reading_ws
+bindsym $super+Shift+o move container to workspace $office_ws
+bindsym $super+Shift+w move container to workspace $testing_ws
+bindsym $super+Shift+x move container to workspace $config_ws
+bindsym $super+Shift+2 move container to workspace $comm_ws
+bindsym $super+Shift+s move container to workspace $notes_ws
 
 # Scratchpad
+bindsym $super+c resize set 1500px 1000px, move position center
+
 for_window [class="KeePassXC"] move scratchpad
 bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
 
 bindsym $super+a [class="KeePassXC"] scratchpad show, resize set 1500px 1000px, move position center
-
-bindsym $super+Shift+m mark "music", move scratchpad
-bindsym $super+m [con_mark="music"] scratchpad show, resize set 1500px 1000px move position center
-
-bindsym $super+Shift+s mark "notes", move scratchpad
-bindsym $super+s [con_mark="notes"] scratchpad show, resize set 95ppt 95ppt, move position center
-
-bindsym $super+Shift+2 mark "thunderbird", move scratchpad
-bindsym $super+2 [con_mark="thunderbird"] scratchpad show, resize set 95ppt 95ppt, move position center
-
-bindsym $super+Shift+p mark "preview", move scratchpad
-bindsym $super+p [con_mark="preview"] scratchpad show, resize set 95ppt 95ppt, move position center
-
-bindsym $super+Shift+b mark "bluetooth", move scratchpad
-bindsym $super+b [con_mark="bluetooth"] scratchpad show, resize set 60ppt 60ppt, move position center
-
-bindsym $super+Shift+d mark "work", move scratchpad
-bindsym $super+d [con_mark="work"] scratchpad show, resize set 95ppt 95ppt, move position center
 
 # Dunst
 bindsym $alt+c exec dunstctl close-all
@@ -251,39 +208,24 @@ bindsym $alt+h exec dunstctl history-pop
 # }}}
 
 # Assign workspace {{{
-# Gimp
-assign [class="Gimp"] $gimp_ws
-# Communication
-assign [class="discord"] $clouds_ws
-assign [class="Skype"] $clouds_ws
-# Games
-assign [class="Lutris"] $games_ws
-assign [class="Steam"] $games_ws
 # Office
 assign [class="libreoffice"] $office_ws
 assign [class="Simple-scan"] $office_ws
 assign [class="Pencil"] $office_ws
 assign [class="Dia"] $office_ws
 assign [class="Pinta"] $office_ws
-# Ide
-assign [class="TeXstudio"] $ide_ws
-assign [class="VirtualBox Manager"] $ide_ws
-# Remote
-assign [class="Anydesk"] $remote_ws
-assign [class="org.remmina.Remmina"] $remote_ws
-assign [class="Filezilla"] $remote_ws
 # Kitty
 assign [class="kitty"] $terminal_ws
+# Kitty
+assign [class="thunderbird"] $comm_ws
+# Kitty
+assign [class="miro"] $notes_ws
 # }}}
 
 # Modes {{{
 bindsym $alt+p mode "private"
 mode "private" {
-  bindsym l workspace $private_left_ws; mode "default"
-  bindsym r workspace $private_right_ws; mode "default"
-
-  bindsym Shift+l move container to workspace $private_left_ws; mode "default"
-  bindsym Shift+r move container to workspace $private_right_ws; mode "default"
+  bindsym g workspace $private_ws; mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -350,20 +292,9 @@ mode "move" {
 }
 # }}}
 
-# Move workspaces to another monitor {{{
-bindsym $alt+$super+m mode "move workspaces"
-mode "move workspaces" {
-  bindsym h     move workspace to output left
-  bindsym l     move workspace to output right
-
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-}
-
 # }}}
 
 # Fixes {{{
 for_window [class="^jetbrains-.+"][window_type=dialog] focus
 for_window [class="KeePassXC"][window_type=dialog] focus
-for_window [class="thunderbird"][window_role="Msgcompose"] floating enable, resize set 60ppt 60ppt
 # }}}
