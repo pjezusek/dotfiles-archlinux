@@ -12,10 +12,10 @@
     - `git clone https://aur.archlinux.org/yay.git`
     - `cd yay`
     - `makepkg -si`
-  - kitty - terminal (`pacman -S base-devel`)
+  - kitty - terminal (`pacman -S kitty`)
   - tmux - terminal multiplexer (`pacman -S tmux`)
     - tpm - plugins manager (`git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`)
-  - neovim - text editor (`pacman -S base-devel`)
+  - neovim - text editor
     - `curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o /bin/nvim`
     - `chmod +x /bin/nvim`
   - git - version control system (`pacman -S git`)
