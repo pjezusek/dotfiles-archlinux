@@ -1,9 +1,11 @@
-# General settings {{{
+# General settings
 # set modifier
 set $super Mod4
 set $alt Mod1
-set $Monitor_1 DP-1
-set $Monitor_2 HDMI-0
+# set $Monitor_1 DP-1
+set $Monitor_2 DVI-D-0
+# set $Monitor_2 HDMI-0
+set $Monitor_1 HDMI-0
 set $Audio_1 alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo
 set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
 
@@ -11,7 +13,7 @@ set $Audio_2 alsa_output.pci-0000_01_00.1.hdmi-stereo
 tiling_drag off
 
 # set font
-font pango: Fira Code Nerd Font 15
+font pango: Fira Code Nerd Font 12
 
 for_window [class=".*"] border pixel 1
 
@@ -20,12 +22,11 @@ gaps outer 0
 smart_gaps on
 smart_borders on
 popup_during_fullscreen smart
-# }}}
 
-# Autostart {{{
+# Autostart
 exec --no-startup-id picom -b
 exec --no-startup-id xrandr --output $Monitor_2 --auto --left-of $Monitor_1 --output $Monitor_1 --primary
-exec --no-startup-id feh --bg-fill ~/.config/wallpaper.jpg
+exec --no-startup-id feh --bg-fill ~/.config/wallpaper.png
 exec --no-startup-id pulseaudio -D
 exec --no-startup-id flameshot &
 exec --no-startup-id nm-applet
@@ -40,9 +41,8 @@ exec --no-startup-id xinput map-to-output 18 $Monitor_1
 exec --no-startup-id xinput map-to-output 19 $Monitor_1
 exec --no-startup-id xinput map-to-output 20 $Monitor_1
 exec --no-startup-id xinput map-to-output 21 $Monitor_1
-# }}}
 
-# Layout {{{
+# Layout
 bar {
   output $Monitor_2
 
@@ -50,10 +50,6 @@ bar {
 
   font pango:Fira Code Nerd Font 12
   strip_workspace_numbers yes
-
-  bindsym button4 nop
-  bindsym button5 nop
-  bindsym button1 nop
 
   colors {
     background #2f343f
@@ -69,16 +65,11 @@ bar {
 
 bar {
   output $Monitor_1
-  tray_output $Monitor_1
 
   position top
 
-  font pango:Fira Code Nerd Font 15
+  font pango:Fira Code Nerd Font 12
   strip_workspace_numbers yes
-
-  bindsym button4 nop
-  bindsym button5 nop
-  bindsym button1 nop
 
   colors {
     background #2f343f
@@ -100,35 +91,40 @@ client.unfocused                #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.urgent                   #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.placeholder              #2f343f #2f343f #d8dee8 #2f343f #2f343f
 client.background               #2f343f
-#}}}
 
-# Workspaces definition {{{
-set $terminal_ws "1:&#xf120; terminal"
-set $youtube_ws "2:&#xf167; browser"
-set $reading_ws "3:&#xfad9; reading"
-set $comm_ws "4:&#xf086; communication"
-set $work_ws "5:&#xf0b1; work"
-set $office_ws "6:&#xf02f; office"
-set $testing_ws "7:&#xf11c; testing"
-set $notes_ws "8:&#xf249; notes"
-set $config_ws "9:&#xf013; config"
+# Workspaces definition
+set $terminal_ws "1:&#xea85; terminal"
+set $main_ws "2:&#xf303; main"
+set $comm_ws "3:&#xf086; communication"
+set $office_ws "4:&#xf02f; office"
+set $development_ws "5:&#xf0d6e; development"
+set $api_ws "6:&#xf109b; API"
+set $notes_ws "7:&#xf249; notes"
+set $envs_ws "8:&#xf0b1; work"
+
+set $youtube_ws "10:&#xf167; youtube"
+set $discord_ws "11:&#xf1ff; discord"
+set $config_ws "12:&#xf013; config"
+
 set $private_ws "99:&#xf023;Private"
-# }}}
 
-# Workspace configuration {{{
+# Workspace configuration
 workspace $terminal_ws output $Monitor_1
-workspace $reading_ws output $Monitor_1
+workspace $main_ws output $Monitor_1
 workspace $comm_ws output $Monitor_1
 workspace $office_ws output $Monitor_1
-workspace $private_ws output $Monitor_1
+workspace $development_ws output $Monitor_1
+workspace $api_ws output $Monitor_1
+workspace $notes_ws output $Monitor_1
+workspace $envs_ws output $Monitor_1
 
 workspace $youtube_ws output $Monitor_2
-workspace $work_ws output $Monitor_2
+workspace $config_ws output $Monitor_2
+workspace $discord_ws output $Monitor_2
 
 focus_on_window_activation focus
-# }}}
 
-# Key bindings {{{
+# Key bindings
 # start a terminal
 bindsym $super+Return exec kitty
 
@@ -175,23 +171,27 @@ bindsym $super+Shift+space focus mode_toggle
 
 # switch to workspace
 bindsym $super+q workspace $terminal_ws
-bindsym $super+e workspace $youtube_ws
-bindsym $super+1 workspace $reading_ws
-bindsym $super+o workspace $office_ws
-bindsym $super+w workspace $testing_ws
-bindsym $super+x workspace $config_ws
+bindsym $super+1 workspace $main_ws
 bindsym $super+2 workspace $comm_ws
+bindsym $super+3 workspace $api_ws
+bindsym $super+o workspace $office_ws
+bindsym $super+w workspace $development_ws
+bindsym $super+x workspace $config_ws
 bindsym $super+s workspace $notes_ws
+bindsym $super+d workspace $envs_ws
+bindsym $super+y workspace $youtube_ws
 
 # move focused container to workspace
 bindsym $super+Shift+q move container to workspace $terminal_ws
-bindsym $super+Shift+e move container to workspace $youtube_ws
-bindsym $super+Shift+1 move container to workspace $reading_ws
-bindsym $super+Shift+o move container to workspace $office_ws
-bindsym $super+Shift+w move container to workspace $testing_ws
-bindsym $super+Shift+x move container to workspace $config_ws
+bindsym $super+Shift+1 move container to workspace $main_ws
 bindsym $super+Shift+2 move container to workspace $comm_ws
+bindsym $super+Shift+3 move container to workspace $api_ws
+bindsym $super+Shift+o move container to workspace $office_ws
+bindsym $super+Shift+w move container to workspace $development_ws
+bindsym $super+Shift+x move container to workspace $config_ws
 bindsym $super+Shift+s move container to workspace $notes_ws
+bindsym $super+Shift+d move container to workspace $envs_ws
+bindsym $super+Shift+y move container to workspace $youtube_ws
 
 # Scratchpad
 bindsym $super+c resize set 1500px 1000px, move position center
@@ -202,27 +202,23 @@ bindsym $super+minus scratchpad show
 
 bindsym $super+a [class="KeePassXC"] scratchpad show, resize set 1500px 1000px, move position center
 
-# Dunst
-bindsym $alt+c exec dunstctl close-all
-bindsym $alt+h exec dunstctl history-pop
-# }}}
+bindsym $super+Shift+e mark "logs", move scratchpad
+bindsym $super+e [con_mark="logs"] scratchpad show, resize set 95 ppt 95 ppt, move position center
 
-# Assign workspace {{{
+bindsym $alt+h resize shrink width 5 px or 5 ppt
+bindsym $alt+l resize grow width 5 px or 5 ppt
+
+# Assign workspace
 # Office
 assign [class="libreoffice"] $office_ws
-assign [class="Simple-scan"] $office_ws
-assign [class="Pencil"] $office_ws
-assign [class="Dia"] $office_ws
-assign [class="Pinta"] $office_ws
-# Kitty
+# Terminal
 assign [class="kitty"] $terminal_ws
-# Kitty
+# Communication
 assign [class="thunderbird"] $comm_ws
-# Kitty
+# Notes
 assign [class="miro"] $notes_ws
-# }}}
 
-# Modes {{{
+# Modes
 bindsym $alt+p mode "private"
 mode "private" {
   bindsym g workspace $private_ws; mode "default"
@@ -233,10 +229,10 @@ mode "private" {
 
 bindsym $alt+Delete mode "system"
 mode "system" {
-  bindsym l exec --no-startup-id i3lock -t -i ~/.config/lock_screen.png, mode "default"
+  bindsym l exec --no-startup-id i3lock -t -i ~/.config/lockscreen.png, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
-  bindsym s exec --no-startup-id i3lock -t -i ~/.config/lock_screen.png && systemctl suspend, mode "default"
-  bindsym h exec --no-startup-id i3lock -t -i ~/.config/lock_screen.png && systemctl hibernate, mode "default"
+  bindsym s exec --no-startup-id i3lock -t -i ~/.config/lockscreen.png && systemctl suspend, mode "default"
+  bindsym h exec --no-startup-id i3lock -t -i ~/.config/lockscreen.png && systemctl hibernate, mode "default"
   bindsym r exec --no-startup-id systemctl reboot, mode "default"
   bindsym p exec --no-startup-id systemctl poweroff, mode "default"
 
@@ -261,15 +257,15 @@ mode "audio" {
 # Resize
 bindsym $alt+Insert mode "resize"
 mode "resize" {
-  bindsym h resize shrink width 10 px or 10 ppt
-  bindsym l resize grow height 10 px or 10 ppt
-  bindsym k resize shrink height 10 px or 10 ppt
-  bindsym j resize grow width 10 px or 10 ppt
+  bindsym h resize shrink width 5 px or 5 ppt
+  bindsym l resize grow width 5 px or 5 ppt
+  bindsym k resize shrink height 5 px or 5 ppt
+  bindsym j resize grow height 5 px or 5 ppt
 
-  bindsym Shift+h resize shrink width 25 px or 25 ppt
-  bindsym Shift+l resize grow height 25 px or 25 ppt
-  bindsym Shift+k resize shrink height 25 px or 25 ppt
-  bindsym Shift+j resize grow width 25 px or 25 ppt
+  bindsym Shift+h resize shrink width 15 px or 15 ppt
+  bindsym Shift+l resize grow height 15 px or 15 ppt
+  bindsym Shift+k resize shrink height 15 px or 15 ppt
+  bindsym Shift+j resize grow width 15 px or 15 ppt
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -290,11 +286,7 @@ mode "move" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-# }}}
 
-# }}}
-
-# Fixes {{{
+# Fixes
 for_window [class="^jetbrains-.+"][window_type=dialog] focus
 for_window [class="KeePassXC"][window_type=dialog] focus
-# }}}
